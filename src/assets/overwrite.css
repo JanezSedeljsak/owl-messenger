@@ -25,5 +25,26 @@ nav {
   position: fixed !important;
   left: 25vw !important;
   bottom: 0 !important;
-  width: 100%;
+  width: 75vw;
+}
+
+.msg-input {
+  background: transparent !important;
+  border-top: rgba(255, 255, 255, 0.452) 1px solid !important;
+  outline: none !important;
+}
+
+
+.rnd-btn {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
 }
