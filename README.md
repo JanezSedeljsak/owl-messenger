@@ -1,2 +1,2 @@
-# telegram-clone
-Vue / Express / MySQL / Semantic UI
+
+# School project with Vue - Express - MySql

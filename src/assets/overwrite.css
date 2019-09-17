@@ -1,0 +1,29 @@
+nav {
+  background-image: url('navback.png') !important;
+  background-size: 100% 100%;
+}
+
+.person-spn {
+  color: white;
+}
+
+
+.person-li:hover {
+  cursor: pointer;
+}
+
+.container-cstm {
+  position: absolute;
+  left: 25vw;
+  top: 0;
+  height: 100vh;
+  width: 75vw;
+  background-image: linear-gradient(#0F2027, #2C5364) !important;
+}
+
+.footer-send {
+  position: fixed !important;
+  left: 25vw !important;
+  bottom: 0 !important;
+  width: 100%;
+}
