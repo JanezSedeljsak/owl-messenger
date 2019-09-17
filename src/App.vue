@@ -29,6 +29,7 @@ export default {
         ).join(" ");
         this.username = `${user}`;
       });
+      //kekec
     fetch("http://localhost:3000/api/get/message-count")
       .then(res => res.json())
       .then(response => {
