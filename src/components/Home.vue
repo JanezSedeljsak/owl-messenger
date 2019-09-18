@@ -5,8 +5,11 @@
   <button v-tooltip="'Groups'" class="rnd-btn ui teal button">
     <i class="users icon"></i>
   </button>
-  <button v-tooltip="'Edit profile'" class="rnd-btn ui olive button">
+  <button v-tooltip="'Edit profile'" class="ui olive button">
     <i class="id card icon"></i>
+  </button>
+  <button v-tooltip="'Edit profile'" class="ui blue button">
+    <i class="id plus icon"></i>
   </button>
 </div>
 <div style="margin-bottom: 1vw; width: 100%" class="ui search">
