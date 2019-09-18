@@ -2,14 +2,17 @@
 <div>
 <nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:25vw;font-weight:bold;" id="mySidebar"><br>
 <div class="row" style="margin-bottom: 10px; width: 100%">
-  <button v-tooltip="'Groups'" class="rnd-btn ui teal button">
+  <button v-tooltip="'Groups'" class="rnd-btn ui green button">
     <i class="users icon"></i>
   </button>
   <button v-tooltip="'Edit profile'" class="ui olive button">
     <i class="id card icon"></i>
   </button>
-  <button v-tooltip="'Edit profile'" class="ui blue button">
+  <button v-tooltip="'Edit profile'" class="ui teal button">
     <i class="id plus icon"></i>
+  </button>
+  <button v-on:click="logOut()" v-tooltip="'Edit profile'" class="ui blue button">
+    <i class="arrow alternate circle left icon"></i>
   </button>
 </div>
 <div style="margin-bottom: 1vw; width: 100%" class="ui search">
@@ -53,6 +56,9 @@ export default {
     },
     openMsg() {
       console.log("neki");
+    },
+    logOut() {
+      window.location = "/login";
     }
   }
 };

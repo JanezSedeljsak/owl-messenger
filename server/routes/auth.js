@@ -5,17 +5,18 @@ const passwordHash = require('password-hash');
 const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
 const axios = require('axios');
+const moment = require('moment');
 
 
 const hash = pass => passwordHash.generate(pass)
 
 const generateToken = userObj => {
-    let token = CryptoJS.AES.encrypt(JSON.stringify(userObj), "5cv4pp0ortk3y");
+    let token = CryptoJS.AES.encrypt(JSON.stringify(userObj), "t3l3gr4m4PP");
     return token.toString();
 }
 
 const parseToken = token => {
-    let userObj = JSON.parse(CryptoJS.AES.decrypt(token, "5cv4pp0ortk3y").toString(CryptoJS.enc.Utf8));
+    let userObj = JSON.parse(CryptoJS.AES.decrypt(token, "t3l3gr4m4PP").toString(CryptoJS.enc.Utf8));
     return userObj;
 }
 
@@ -25,7 +26,8 @@ router.post('/create-user', (req, res, next) => {
         name: req.body.name,
         surname: req.body.surname,
         email: req.body.email,
-        password: req.body.pass
+        password: hash(req.body.pass).toString(),
+        date_created: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
     };
 
     qb.returning('id').insert('users', data, (err, result) => {
@@ -45,52 +47,44 @@ router.post('/create-user', (req, res, next) => {
     });
 });
 
-router.post('/admin-login', (req, res, next) => {
-    if (Object.values(req.body).includes('')) {
-        res.status(200).json({
-            ok: false,
-            result: 'Obrazec ni bil pravilno izpolnjen!'
-        });
-    } else {
-        const qb = new QueryBuilder(settings, 'mysql', 'single');
+router.post('/get-user', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
 
-        qb.select("id, password").from('teachers')
-            .where({ mail: req.body.mail })
-            .get(async (error, result) => {
-                qb.disconnect();
-                if (error) {
+    qb.select("id, password").from('users')
+        .where({ email: req.body.email })
+        .get(async (error, result) => {
+            qb.disconnect();
+            if (error) {
+                res.status(200).json({
+                    ok: false,
+                    result: 'Pojavila se je napaka pri iskanju uporabnika!'
+                });
+            } else {
+                if (!result.length) {
                     res.status(200).json({
                         ok: false,
-                        result: 'Pojavila se je napaka pri iskanju uporabnika!'
+                        result: "Uporabnik ni bil najden!"
                     });
                 } else {
-                    if (!result.length) {
+                    let pass = result[0].password;
+                    var passwordHash = require('password-hash/lib/password-hash');
+                    if (passwordHash.verify(req.body.pass, pass)) {
                         res.status(200).json({
-                            ok: false,
-                            result: "Uporabnik ni bil najden!"
+                            ok: true,
+                            result: await generateToken({
+                                _id: result[0].id
+                            })
                         });
                     } else {
-                        let pass = result[0].password;
-                        var passwordHash = require('password-hash/lib/password-hash');
-                        if (passwordHash.verify(req.body.pass, pass)) {
-                            res.status(200).json({
-                                ok: true,
-                                result: await generateToken({
-                                    _id: result[0].id,
-                                    _rights: 'admin'
-                                })
-                            });
-                        } else {
-                            res.status(200).json({
-                                ok: false,
-                                result: { pass: pass, sent: req.body.pass }
-                            });
-                        }
-
+                        res.status(200).json({
+                            ok: false,
+                            result: "Pojavila se je neznana napaka!"
+                        });
                     }
+
                 }
-            });
-    }
+            }
+        });
 });
 
 router.post('/student-login', (req, res, next) => {
