@@ -3,6 +3,17 @@ nav {
   background-size: 100% 100%;
 }
 
+body {
+  background: #eee;
+}
+
+form {
+  /*background: #eee !important;
+  background-size: stretch !important;
+  box-shadow: 0 0 10px #9a9a9a99;*/
+  padding: 20px;
+}
+
 .person-spn {
   color: white;
 }
@@ -35,16 +46,9 @@ nav {
 }
 
 
-.rnd-btn {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 50%;
+form.loginView {
+  position: absolute;
+  top: 5vw;
+  left: 30%; 
+  width: 40%;
 }

@@ -25,7 +25,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     let user = null;
-    if (to.path === '/home') {
+    if (['/login', '/register'].includes(to.path)) {
         if (sessionStorage.getItem("szr_auth")) sessionStorage.removeItem('szr_auth');
         next();
     } else if (sessionStorage.getItem("szr_auth")) {
