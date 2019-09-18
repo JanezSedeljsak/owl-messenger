@@ -19,43 +19,30 @@ const parseToken = token => {
     return userObj;
 }
 
-router.post('/create-admin', (req, res, next) => {
-    if (Object.values(req.body).includes('')) {
-        res.status(200).json({
-            ok: false,
-            result: 'Obrazec ni bil pravilno izpolnjen!'
-        });
-    } else if (req.body.pass !== req.body.pass1) {
-        res.status(200).json({
-            ok: false,
-            result: 'Gesli se ne ujemata'
-        });
-    } else {
-        const qb = new QueryBuilder(settings, 'mysql', 'single');
-        const data = {
-            name: req.body.name,
-            surname: req.body.surname,
-            mail: req.body.mail,
-            school_id: req.body.school,
-            password: hash(req.body.pass).toString()
-        };
+router.post('/create-user', (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+    const data = {
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
+        password: req.body.pass
+    };
 
-        qb.returning('id').insert('Teachers', data, (err, result) => {
-            if (err) {
-                console.log(err);
-                res.status(200).json({
-                    ok: false,
-                    result: 'Pojavila se je napaka'
-                });
-            }
-            else {
-                res.status(200).json({
-                    ok: false,
-                    result: 'Nov admin je bil dodan'
-                });
-            }
-        });
-    }
+    qb.returning('id').insert('users', data, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(200).json({
+                ok: false,
+                result: 'Pojavila se je napaka; Najverjetneje uporabnik že obstaja!'
+            });
+        }
+        else {
+            res.status(200).json({
+                ok: false,
+                result: 'Nov uporabnik je bil dodan!'
+            });
+        }
+    });
 });
 
 router.post('/admin-login', (req, res, next) => {

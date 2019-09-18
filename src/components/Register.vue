@@ -53,15 +53,15 @@ export default {
       if(!Object.values(form).includes("")) {
         if(form.pass = form.re_pass) {
           console.log("create acc");
-          /*fetch("http://localhost:3000/api/auth/create-user", {
+          fetch("http://localhost:3000/api/auth/create-user", {
             method: "POST",
             body: JSON.stringify(form),
             headers: { "Content-Type": "application/json" }
           })
           .then(res => res.json())
           .then(response => {
-
-          });*/
+              this.$swal(response.result);
+          });
         }
       }
     }
