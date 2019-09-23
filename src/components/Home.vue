@@ -2,6 +2,9 @@
 <div>
 <nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:25vw;font-weight:bold;" id="mySidebar"><br>
 <div class="row" style="margin-bottom: 10px; width: 100%">
+  <img src="./../assets/logo.png" style="width: 80%" />
+</div>
+<div class="row" style="margin-bottom: 10px; width: 100%">
   <button v-tooltip="'Groups'" class="rnd-btn ui green button">
     <i class="users icon"></i>
   </button>
