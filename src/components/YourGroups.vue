@@ -21,7 +21,7 @@
         <div class="content">
           <a class="header">Random group</a>
         </div>
-        <button style="float: right" class="ui primary button">Join</button>
+        <button style="float: right" class="ui primary button">Edit</button>
       </div>
     </div>
   </div>

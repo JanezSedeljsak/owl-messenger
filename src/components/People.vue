@@ -3,39 +3,25 @@
     <div clss="row">
       <div style="float: right" class="field">
         <div class="fields">
-          <button class="ui red button">Back</button>
+          <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
         </div>
       </div>
       <div style="float: left" class="ui category search">
         <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Search animals..." />
+          <input class="prompt" type="text" placeholder="Search groups..." />
           <i class="search icon"></i>
         </div>
         <div class="results"></div>
       </div>
     </div>
     <br><br>
-    <div style="clear:both" class="ui relaxed divided list">
-      <div class="item">
-        <i class="large github middle aligned icon"></i>
+    <div style="clear:both" class="ui middle aligned divided list">
+      <div v-for="x in 10" v-bind:key="x" class="item">
+        <img class="ui avatar image" src="./../assets/userlogin.png">
         <div class="content">
-          <a class="header">Semantic-Org/Semantic-UI</a>
-          <div class="description">Updated 10 mins ago</div>
+          <a class="header">Random human</a>
         </div>
-      </div>
-      <div class="item">
-        <i class="large github middle aligned icon"></i>
-        <div class="content">
-          <a class="header">Semantic-Org/Semantic-UI-Docs</a>
-          <div class="description">Updated 22 mins ago</div>
-        </div>
-      </div>
-      <div class="item">
-        <i class="large github middle aligned icon"></i>
-        <div class="content">
-          <a class="header">Semantic-Org/Semantic-UI-Meteor</a>
-          <div class="description">Updated 34 mins ago</div>
-        </div>
+        <button style="float: right" class="ui primary button">Add</button>
       </div>
     </div>
   </div>
@@ -47,6 +33,9 @@ export default {
     return {};
   },
   methods: {
+    moveUrl: link =>
+      window.location.pathname != link ? (window.location = link) : null
+    ,
     search() {
       alert("mjau");
     },
