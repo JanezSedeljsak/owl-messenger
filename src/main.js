@@ -57,9 +57,10 @@ Vue.mixin({
                 return v.toString(16);
             });    
         },
-        moveUrl: link =>
+        moveUrl: link => {
+            window.event.preventDefault();
             window.location.pathname != link ? (window.location = link) : null
-        ,
+        }
     }
 });
 

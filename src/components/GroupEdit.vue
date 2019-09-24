@@ -5,10 +5,10 @@
       <label>Name</label>
       <div class="two fields">
         <div class="field">
-          <input type="text" name="shipping[first-name]" placeholder="First Name" />
+          <input type="text" placeholder="First Name" />
         </div>
         <div class="field">
-          <input type="text" name="shipping[last-name]" placeholder="Last Name" />
+          <input type="text" placeholder="Last Name" />
         </div>
       </div>
     </div>
@@ -16,10 +16,10 @@
       <label>Authorization</label>
       <div class="fields">
         <div class="twelve wide field">
-          <input type="text" name="shipping[address]" placeholder="Email" />
+          <input type="text" placeholder="Email" />
         </div>
         <div class="four wide field">
-          <input type="password" name="shipping[address-2]" placeholder="Password" />
+          <input type="password" placeholder="Password" />
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <div class="ui buttons">
           <button class="ui positive button">Update</button>
           <div class="or"></div>
-          <button class="ui button">Back</button>
+          <button v-on:click="moveUrl('/home')" class="ui button">Back</button>
         </div>
       </div>
     </div>
