@@ -2,7 +2,10 @@
   <div>
     <div clss="row">
       <div style="float: right" class="field">
-        <div class="fields">
+        <div style="float: left" class="fields">
+          <button v-on:click="moveUrl('/your-groups')" class="ui grey button">Your Groups</button>
+        </div>
+        <div style="float: left" class="fields">
           <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
         </div>
       </div>
@@ -14,10 +17,11 @@
         <div class="results"></div>
       </div>
     </div>
-    <br><br>
+    <br />
+    <br />
     <div style="clear:both" class="ui middle aligned divided list">
       <div v-for="x in 10" v-bind:key="x" class="item">
-        <img class="ui avatar image" src="./../assets/userlogin.png">
+        <img class="ui avatar image" src="./../assets/userlogin.png" />
         <div class="content">
           <a class="header">Random group</a>
         </div>
@@ -34,8 +38,7 @@ export default {
   },
   methods: {
     moveUrl: link =>
-      window.location.pathname != link ? (window.location = link) : null
-    ,
+      window.location.pathname != link ? (window.location = link) : null,
     search() {
       alert("mjau");
     },

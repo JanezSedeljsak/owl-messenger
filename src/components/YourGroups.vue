@@ -2,7 +2,10 @@
   <div>
     <div clss="row">
       <div style="float: right" class="field">
-        <div class="fields">
+        <div style="float:left" class="fields">
+          <button v-on:click="moveUrl('/group/5')" class="ui teal button">Create group</button>
+        </div>
+        <div style="float:left" class="fields">
           <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
         </div>
       </div>
