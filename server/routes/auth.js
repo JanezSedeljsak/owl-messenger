@@ -87,37 +87,12 @@ router.post('/get-user', (req, res, next) => {
         });
 });
 
-router.post('/student-login', (req, res, next) => {
-    if (Object.values(req.body).includes('')) {
-        res.status(200).json({
-            ok: false,
-            result: 'Obrazec ni bil pravilno izpolnjen!'
-        });
-    } else {
-        axios.post('https://malice.scv.si/api/v2/auth', {
-            email: req.body.mail,
-            password: req.body.pass
-        }).then(function (response) {
-            res.status(200).json({
-                ok: true,
-                result: response
-            });
-        }).catch(function (error) {
-            res.status(200).json({
-                ok: false,
-                result: error
-            });
-        });
-    }
-});
-
-
-router.post('/get-rights', async (req, res, next) => {
+router.post('/route-guard', async (req, res, next) => {
     console.log(req.body.tokenString);
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
-        result: { _rights: token._rights }
+        result: { _id: token._id }
     });
 });
 

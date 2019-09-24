@@ -25,16 +25,17 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     let user = null;
-    if (!['/login', '/register'].includes(to.path)) {
-        if (sessionStorage.getItem("szr_auth")) sessionStorage.removeItem('szr_auth');
+    if (['/login', '/register'].includes(to.path)) {
+        if (sessionStorage.getItem("_tAuth")) sessionStorage.removeItem('_tAuth');
         next();
-    } else if (sessionStorage.getItem("szr_auth")) {
-        fetch("http://localhost:3000/api/auth/get-rights", {
+    } else if (sessionStorage.getItem("_tAuth")) {
+        fetch("http://localhost:3000/api/auth/route-guard", {
             method: "POST",
-            body: JSON.stringify({ tokenString: sessionStorage.getItem("szr_auth") }),
+            body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
             headers: { "Content-Type": "application/json" }
         }).then(res => res.json()).then(response => {
-            user = response.result._rights;
+            user = response.result._id;
+            console.log(user);
             if (user) next();
             else next('/login');
         });

@@ -61,6 +61,13 @@ export default {
           .then(res => res.json())
           .then(response => {
               this.$swal(response.result);
+              this.form = {
+                name: "",
+                surname: "",
+                email: "",
+                pass: "",
+                re_pass: ""
+              }
           });
         }
       }
