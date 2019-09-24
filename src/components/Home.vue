@@ -5,13 +5,13 @@
   <img src="./../assets/logo.png" style="width: 80%" />
 </div>
 <div class="row" style="margin-bottom: 10px; width: 100%">
-  <button v-tooltip="'Groups'" class="rnd-btn ui green button">
+  <button v-on:click="moveUrl('/groups')"  v-tooltip="'Groups'" class="rnd-btn ui green button">
     <i class="users icon"></i>
   </button>
-  <button v-tooltip="'Edit profile'" class="ui olive button">
+  <button v-on:click="moveUrl('/profile')"  v-tooltip="'Edit profile'" class="ui olive button">
     <i class="id card icon"></i>
   </button>
-  <button v-tooltip="'Edit profile'" class="ui teal button">
+  <button v-on:click="moveUrl('/people')" v-tooltip="'Edit profile'" class="ui teal button">
     <i class="id plus icon"></i>
   </button>
   <button v-on:click="logOut()" v-tooltip="'Edit profile'" class="ui blue button">
@@ -54,6 +54,9 @@ export default {
     return {};
   },
   methods: {
+    moveUrl: link =>
+      window.location.pathname != link ? (window.location = link) : null
+    ,
     search() {
       alert("mjau");
     },
