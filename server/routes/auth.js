@@ -101,7 +101,7 @@ router.post('/get-username', async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     const qb = new QueryBuilder(settings, 'mysql', 'single');
     console.log(token, "129");
-    qb.select("name, surname").from('teachers')
+    qb.select("name, surname").from('users')
         .where('id', token._id)
         .get((err, result) => {
             qb.disconnect();

@@ -20,11 +20,11 @@
     <br><br>
     <div style="clear:both" class="ui middle aligned divided list">
       <div v-for="x in 10" v-bind:key="x" class="item">
-        <img class="ui avatar image" src="./../assets/userlogin.png">
+        <img class="ui avatar image" src="./../assets/group.png">
         <div class="content">
           <a class="header">Random group</a>
         </div>
-        <button style="float: right" class="ui primary button">Edit</button>
+        <button v-on:click="moveUrl('/group/5')" style="float: right" class="ui primary button">Edit</button>
       </div>
     </div>
   </div>
@@ -36,9 +36,6 @@ export default {
     return {};
   },
   methods: {
-    moveUrl: link =>
-      window.location.pathname != link ? (window.location = link) : null
-    ,
     search() {
       alert("mjau");
     },

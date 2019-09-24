@@ -54,9 +54,6 @@ export default {
     return {};
   },
   methods: {
-    moveUrl: link =>
-      window.location.pathname != link ? (window.location = link) : null
-    ,
     search() {
       alert("mjau");
     },
