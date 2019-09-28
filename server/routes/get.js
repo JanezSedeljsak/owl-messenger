@@ -36,7 +36,7 @@ class DBMethods {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
 
             qb.select([
-                'g name'
+                'g.name'
             ]).from('groups g')
                 .get((err, result) => {
                     qb.disconnect();
