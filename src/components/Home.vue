@@ -8,13 +8,13 @@
   <button v-on:click="moveUrl('/groups')"  v-tooltip="'Groups'" class="rnd-btn ui green button">
     <i class="users icon"></i>
   </button>
-  <button v-on:click="moveUrl('/profile')"  v-tooltip="'Edit profile'" class="ui olive button">
+  <button v-on:click="moveUrl('/profile')"  v-tooltip="'Edit profile'" class="rnd-btn ui olive button">
     <i class="id card icon"></i>
   </button>
-  <button v-on:click="moveUrl('/people')" v-tooltip="'Edit profile'" class="ui teal button">
+  <button v-on:click="moveUrl('/people')" v-tooltip="'Edit profile'" class="rnd-btn ui teal button">
     <i class="id plus icon"></i>
   </button>
-  <button v-on:click="logOut()" v-tooltip="'Edit profile'" class="ui blue button">
+  <button v-on:click="logOut()" v-tooltip="'Edit profile'" class="rnd-btn ui blue button">
     <i class="arrow alternate circle left icon"></i>
   </button>
 </div>
