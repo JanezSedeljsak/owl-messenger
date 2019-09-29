@@ -14,13 +14,14 @@ form {
   padding: 20px;
 }
 
-.person-li, .person-li * {
-    transition: all .2s ease-in-out;
+.person-li,
+.person-li * {
+  transition: all 0.2s ease-in-out;
 }
 
 .person-li:hover span {
-    font-weight: bold !important;
-    color: #888 !important;
+  font-weight: bold !important;
+  color: #888 !important;
 }
 
 .person-spn {
@@ -58,6 +59,20 @@ form.loginView {
   top: 5vw;
   left: 30%;
   width: 40%;
+}
+
+i.rmv-btn:hover {
+    cursor: pointer;
+}
+
+.tooltip {
+  z-index: 1000;
+}
+.tooltip-inner {
+  background: black;
+  color: white;
+  border-radius: 16px;
+  padding: 5px 10px 4px;
 }
 
 .rnd-btn {

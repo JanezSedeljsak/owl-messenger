@@ -12,7 +12,7 @@
       <div class="row" style="text-align:center; margin-bottom: 10px; width: 100%">
         <button
           v-on:click="moveUrl('/groups')"
-          v-tooltip="'Groups'"
+          v-tooltip="'Search Groups'"
           class="rnd-btn ui green button"
         >
           <i class="users icon"></i>
@@ -26,12 +26,12 @@
         </button>
         <button
           v-on:click="moveUrl('/people')"
-          v-tooltip="'Edit profile'"
+          v-tooltip="'Search people'"
           class="rnd-btn ui teal button"
         >
           <i class="id plus icon"></i>
         </button>
-        <button v-on:click="logOut()" v-tooltip="'Edit profile'" class="rnd-btn ui blue button">
+        <button v-on:click="logOut()" v-tooltip="'Log out'" class="rnd-btn ui blue button">
           <i class="arrow alternate circle left icon"></i>
         </button>
       </div>
@@ -53,6 +53,7 @@
           class="person-li w3-bar"
           v-for="(group, $index) in groups"
           v-bind:key="$index"
+          v-tooltip="`Open \'${group.name.toUpperCase() }\' chat`"
         >
           <img
             src="./../assets/userlogin.png"
@@ -73,11 +74,21 @@
             v-for="msg in chat"
             v-bind:key="msg"
         >
-          <p>
+          <p v-if="msg.content">
             {{ msg.content }}
             <span
               class="username"
-            >{{ msg.name + " " + msg.surname | capFirst }}</span>
+            >
+                {{ msg.name + " " + msg.surname | capFirst }}
+                <br>
+                {{ msg.msg_time | dateFromNow }}
+                |&nbsp;
+                <i
+                    v-tooltip="'delete chat'"
+                    class="rmv-btn id red remove icon"
+                    v-on:click="deleteChat(msg.id)"
+                ></i>
+            </span>
           </p>
         </div>
       </div>
@@ -118,6 +129,9 @@ export default {
         .then(response => {
           this.groups = response.result;
         });
+    },
+    deleteChat(id) {
+        console.log("delete chat", id)
     },
     search() {
       alert("mjau");

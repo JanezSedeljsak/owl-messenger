@@ -40,7 +40,8 @@ class DBMethods {
                 'm.id',
                 'm.content',
                 'u.name',
-                'u.surname'
+                'u.surname',
+                'm.msg_time'
             ]).from('groups g')
                 .join('messages m', 'm.group_id=g.id', 'left')
                 .join('users u', 'm.user_id=u.id', 'left')
