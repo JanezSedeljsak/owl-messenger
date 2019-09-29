@@ -1,6 +1,7 @@
-# Chat app (Telegram - clone)ish
+# OWL Messenger
 
-It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....
+It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....</br>
+Follows some principles from Telegram and such apps...
 
 ## Getting Started
 
