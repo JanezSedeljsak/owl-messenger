@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 2vw">
     <div clss="row">
       <div style="float: right" class="field">
         <div class="fields">
@@ -8,7 +8,7 @@
       </div>
       <div style="float: left" class="ui category search">
         <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Search groups..." />
+          <input class="prompt" type="text" placeholder="Search people..." />
           <i class="search icon"></i>
         </div>
         <div class="results"></div>
@@ -17,7 +17,7 @@
     <br><br>
     <div style="clear:both" class="ui middle aligned divided list">
       <div v-for="x in 10" v-bind:key="x" class="item">
-        <img class="ui avatar image" src="./../assets/userlogin.png">
+        <img class="list-img ui avatar image" src="./../assets/userlogin.png">
         <div class="content">
           <a class="header">Random human</a>
         </div>

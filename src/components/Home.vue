@@ -26,10 +26,10 @@
   <div class="results"></div>
 </div>
 <ul class="w3-ul w3-card-4">
-    <li v-on:click="openMsg()" class="person-li w3-bar" v-for="x in 10" v-bind:key="x">
+    <li v-on:click="openMsg()" class="person-li w3-bar" v-for="human in people" v-bind:key="human">
       <img src="./../assets/userlogin.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
       <div class="w3-bar-item">
-        <span class="person-spn">Random Preson</span>
+        <span class="person-spn">{{human.name + " " + human.surname | capFirst}}</span>
       </div>
     </li>
 </ul>
@@ -51,9 +51,26 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+        people: []
+    };
+  },
+  created: function () {
+      this.fetchData();
   },
   methods: {
+    fetchData() {
+        fetch("http://localhost:3000/api/get/get-people", {
+            method: "POST",
+            body: JSON.stringify({tokenString: sessionStorage.getItem("_tAuth")}),
+            headers: { "Content-Type": "application/json" }
+          })
+            .then(res => res.json())
+            .then(response => {
+                this.people = response.result;
+                console.log(this.people);
+        });
+    },
     search() {
       alert("mjau");
     },

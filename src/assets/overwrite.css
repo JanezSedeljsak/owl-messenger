@@ -69,3 +69,8 @@ form.loginView {
 .rnd-btn > * {
     font-size: 2em !important;
 }
+
+img.list-img {
+    width: 3vw !important;
+    height: 3vw !important;
+}

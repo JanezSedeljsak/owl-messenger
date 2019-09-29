@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 2vw">
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
@@ -21,7 +21,7 @@
     <br />
     <div style="clear:both" class="ui middle aligned divided list">
       <div v-for="x in 10" v-bind:key="x" class="item">
-        <img class="ui avatar image" src="./../assets/group.png" />
+        <img class="list-img ui avatar image" src="./../assets/group.png" />
         <div class="content">
           <a class="header">Random group</a>
         </div>
