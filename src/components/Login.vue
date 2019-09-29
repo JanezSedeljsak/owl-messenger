@@ -35,7 +35,7 @@ export default {
     login() {
       window.event.preventDefault();
       if(!Object.values(this.form).includes("")) {
-          console.log("login bojda");
+          console.log("login bojda", this.form);
           fetch("http://localhost:3000/api/auth/get-user", {
             method: "POST",
             body: JSON.stringify(this.form),

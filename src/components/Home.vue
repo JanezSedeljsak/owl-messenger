@@ -35,10 +35,10 @@
 </ul>
 </nav>
 <div class="container-cstm">
-  <div style="left: 0; width: 94vw; height: 90vh">
+  <div style="left: 0; width: 94vw; height: 100%">
     <!-- msg place -->
   </div>
-  <div style="height: 6vh;" class="footer-send ui right labeled input">
+  <div style="z-index: 3" class="footer-send ui right labeled input">
     <input type="text" class="msg-input" placeholder="Type message..">
     <div style="width: 10vw" class="ui inverted teal button">
       <i class="paper plane icon"></i>Send
