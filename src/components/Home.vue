@@ -41,7 +41,7 @@
             v-on:keydown="search()"
             class="prompt"
             type="text"
-            placeholder="Search for people..."
+            placeholder="Search chats..."
           />
           <i class="search icon"></i>
         </div>
@@ -100,7 +100,7 @@
       </div>
     </div>
     <div v-else class="container-cstm">
-        <h1 style="font-size: 3vw !important" class="chat-title text-center">Click on a user to open chat</h1>
+        <h1 style="font-size: 3vw !important" class="chat-title text-center">>>Pick to chat</h1>
     </div>
   </div>
 </template>
