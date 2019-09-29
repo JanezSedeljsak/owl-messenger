@@ -7,7 +7,7 @@
     >
       <br />
       <div class="row" style="margin-bottom: 10px; width: 100%">
-        <img src="./../assets/logo.png" style="width: 80%" />
+        <img src="./../assets/wide-logo.png" style="width: 90%" />
       </div>
       <div class="row" style="text-align:center; margin-bottom: 10px; width: 100%">
         <button
@@ -67,7 +67,7 @@
     </nav>
     <div class="container-cstm">
       <div class="wrapper t-chat" style="overflow-y: scroll; left: 0; width: 94vw; height: 100%">
-        <h1 class="chat-title text-center">Luka Lah</h1>
+        <h1 class="chat-title text-center">Random Group</h1>
         <div class="speechbubble sent" v-bind:key="x">
           <p>
             A si vedu da si ubistvu ful vlek gey ti!
