@@ -4,7 +4,7 @@
 <div class="row" style="margin-bottom: 10px; width: 100%">
   <img src="./../assets/logo.png" style="width: 80%" />
 </div>
-<div class="row" style="margin-bottom: 10px; width: 100%">
+<div class="row" style="text-align:center; margin-bottom: 10px; width: 100%">
   <button v-on:click="moveUrl('/groups')"  v-tooltip="'Groups'" class="rnd-btn ui green button">
     <i class="users icon"></i>
   </button>
