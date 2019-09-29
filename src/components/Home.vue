@@ -49,10 +49,10 @@
       </div>
       <ul class="w3-ul w3-card-4">
         <li
-          v-on:click="openMsg()"
+          v-on:click="openMsg(group.id, group.name)"
           class="person-li w3-bar"
-          v-for="human in people"
-          v-bind:key="human"
+          v-for="(group, $index) in groups"
+          v-bind:key="$index"
         >
           <img
             src="./../assets/userlogin.png"
@@ -60,28 +60,24 @@
             style="width:85px"
           />
           <div class="w3-bar-item">
-            <span class="person-spn">{{human.name + " " + human.surname | capFirst}}</span>
+            <span class="person-spn">{{ group.name | capFirst }}</span>
           </div>
         </li>
       </ul>
     </nav>
-    <div class="container-cstm">
+    <div v-if="chat.length" class="container-cstm">
       <div class="wrapper t-chat" style="overflow-y: scroll; left: 0; width: 94vw; height: 100%">
-        <h1 class="chat-title text-center">Random Group</h1>
-        <div class="speechbubble sent" v-bind:key="x">
+        <h1 class="chat-title text-center">{{ chatName }}</h1>
+        <div 
+            class="speechbubble sent"
+            v-for="msg in chat"
+            v-bind:key="msg"
+        >
           <p>
-            A si vedu da si ubistvu ful vlek gey ti!
+            {{ msg.content }}
             <span
               class="username"
-            >You</span>
-          </p>
-        </div>
-        <div class="speechbubble recived" v-bind:key="x">
-          <p>
-            Grrrrr
-            <span
-              class="username"
-            >Luka Lah</span>
+            >{{ msg.name + " " + msg.surname | capFirst }}</span>
           </p>
         </div>
       </div>
@@ -92,6 +88,9 @@
         </div>
       </div>
     </div>
+    <div v-else class="container-cstm">
+        <h1 style="font-size: 3vw !important" class="chat-title text-center">Click on a user to open chat</h1>
+    </div>
   </div>
 </template>
 
@@ -99,7 +98,10 @@
 export default {
   data() {
     return {
-      people: []
+      groups: [],
+      groupsForDisplay: [],
+      chat: [],
+      chatName: null
     };
   },
   created: function() {
@@ -107,22 +109,36 @@ export default {
   },
   methods: {
     fetchData() {
-      fetch("http://localhost:3000/api/get/get-people", {
+      fetch("http://localhost:3000/api/get/get-chat-groups", {
         method: "POST",
         body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
         headers: { "Content-Type": "application/json" }
       })
         .then(res => res.json())
         .then(response => {
-          this.people = response.result;
-          console.log(this.people);
+          this.groups = response.result;
         });
     },
     search() {
       alert("mjau");
     },
-    openMsg() {
-      console.log("neki");
+    openMsg(id, cName = "Random Chat") {
+        this.chatName = cName;
+        fetch("http://localhost:3000/api/get/get-messages", {
+            method: "POST",
+            body: JSON.stringify({ 
+                "tokenString": sessionStorage.getItem("_tAuth"),
+                "id": id
+            }),
+            headers: { "Content-Type": "application/json" }
+        })
+            .then(res => res.json())
+            .then(response => {
+                this.chat = response.result;
+                console.log(this.chat);
+            });
+        
+
     },
     logOut() {
       window.location = "/login";

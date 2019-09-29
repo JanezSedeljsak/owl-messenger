@@ -17,12 +17,13 @@ const parseToken = token => {
 }
 
 class DBMethods {
-    static getChatGroups() {
+    static getChatGroups(token) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
 
             qb.select([
-                'g name'
+                'g.name',
+                'g.id'
             ]).from('groups g')
                 .get((err, result) => {
                     qb.disconnect();
@@ -30,6 +31,28 @@ class DBMethods {
                 });
         });
     }
+
+    static getMessages(token, groupId) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.select([
+                'm.id',
+                'm.content',
+                'u.name',
+                'u.surname'
+            ]).from('groups g')
+                .join('messages m', 'm.group_id=g.id', 'left')
+                .join('users u', 'm.user_id=u.id', 'left')
+                .where({ 'g.id': groupId })
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
+
     static getGroupById(id) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
@@ -94,9 +117,10 @@ class DBMethods {
 }
 
 router.get('/get-groups', async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getGroups()
+        result: await DBMethods.getGroups(token)
     })
 });
 
@@ -122,10 +146,19 @@ router.post('/get-group-by-id', async (req, res, next) => {
     })
 });
 
-router.get('/get-chat-groups', async (req, res, next) => {
+router.post('/get-messages', async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getChatGroups()
+        result: await DBMethods.getMessages(req.body.tokenString, req.body.id)
+    })
+});
+
+router.post('/get-chat-groups', async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getChatGroups(token)
     })
 });
 
