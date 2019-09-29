@@ -12,15 +12,15 @@ It's a simple chat app idea without a socket developed in Vue, Express with basi
 
 ### Prerequisites
 
-> NodeJS 
-> Some kind of a mySQL server
+* NodeJS 
+* Some kind of a mySQL server
 
 ## Built With
 
-> vue
-> express
-> semantic ui 
-> some random js libraries
+* vue
+* express
+* semantic ui 
+* some random js libraries
 
 ## Authors
 
