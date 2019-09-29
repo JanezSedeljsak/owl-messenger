@@ -24,4 +24,4 @@ It's a simple chat app idea without a socket developed in Vue, Express with basi
 
 ## Authors
 
-* **Janez Sedeljsak** - [PurpleBooth](https://github.com/JanezSedeljsak)
+* **Janez Sedeljsak** - [GitHub Profile](https://github.com/JanezSedeljsak)
