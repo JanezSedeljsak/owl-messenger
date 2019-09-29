@@ -4,11 +4,11 @@ It's a simple chat app idea without a socket developed in Vue, Express with basi
 
 ## Getting Started
 
-> Download the project
-> npm install
-> create a database with the telegram_db.sql script
-> alter the file server/routes/connect.js to connect your database
-> run 2 different CMDs to run npm run dev && npm run start-server 
+> Download the project</br>
+> npm install</br>
+> create a database with the telegram_db.sql script</br>
+> alter the file server/routes/connect.js to connect your database</br>
+> run 2 different CMDs to run npm run dev && npm run start-server
 
 ### Prerequisites
 
