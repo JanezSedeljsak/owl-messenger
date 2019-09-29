@@ -42,4 +42,5 @@ export default {
 
 <style lang="css">
 @import "./assets/overwrite.css";
+@import "./assets/chat.css";
 </style>

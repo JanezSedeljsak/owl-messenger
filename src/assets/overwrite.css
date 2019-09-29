@@ -1,5 +1,5 @@
 nav {
-  background-image: url('navback.png') !important;
+  background-image: url("navback.png") !important;
   background-size: 100% 100%;
 }
 
@@ -18,7 +18,6 @@ form {
   color: white;
 }
 
-
 .person-li:hover {
   cursor: pointer;
 }
@@ -29,7 +28,7 @@ form {
   top: 0;
   height: 100vh;
   width: 75vw;
-  background-image: linear-gradient(#0F2027, #2C5364) !important;
+  background-image: linear-gradient(#0f2027, #2c5364) !important;
 }
 
 .footer-send {
@@ -40,37 +39,36 @@ form {
 }
 
 .msg-input {
-  background: transparent !important;
+  background: #eee !important;
   border-top: rgba(255, 255, 255, 0.452) 1px solid !important;
   outline: none !important;
 }
 
-
 form.loginView {
   position: absolute;
   top: 5vw;
-  left: 30%; 
+  left: 30%;
   width: 40%;
 }
 
 .rnd-btn {
-    width: 4em !important;
-    height: 4em !important;
-    margin: 0 !important;
-    padding: 20px !important;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100% !important;
+  width: 4em !important;
+  height: 4em !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100% !important;
 }
 
 .rnd-btn > * {
-    font-size: 2em !important;
+  font-size: 2em !important;
 }
 
 img.list-img {
-    width: 3vw !important;
-    height: 3vw !important;
+  width: 3vw !important;
+  height: 3vw !important;
 }
