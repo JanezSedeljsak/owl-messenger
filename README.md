@@ -21,10 +21,10 @@ Follows some principles from Telegram and such apps...
 * Some kind of a mySQL server
 
 ## Built With
-* vue
-* express
-* semantic ui 
-* some random js libraries
+* [Vue](https://www.npmjs.com/package/vue)
+* [Express](https://www.npmjs.com/package/express)
+* [Semantic ui](https://semantic-ui.com)
+* some extra js libraries....
 
 ## License
 
