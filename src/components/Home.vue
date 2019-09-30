@@ -37,12 +37,7 @@
       </div>
       <div style="margin-bottom: 1vw; width: 100%" class="ui search">
         <div style="width: 100%" class="ui icon input">
-          <input
-            v-on:keydown="search()"
-            class="prompt"
-            type="text"
-            placeholder="Search chats..."
-          />
+          <input v-model="chatFilter" class="prompt" type="text" placeholder="Search chats..." />
           <i class="search icon"></i>
         </div>
         <div class="results"></div>
@@ -55,14 +50,16 @@
           v-bind:key="$index"
           v-tooltip="`Open \'${group.name.toUpperCase() }\' chat`"
         >
-          <img
-            src="./../assets/userlogin.png"
-            class="w3-bar-item w3-circle w3-hide-small"
-            style="width:85px"
-          />
-          <div class="w3-bar-item">
-            <span class="person-spn">{{ group.name | capFirst }}</span>
-          </div>
+            <div v-if="group.name.includes(chatFilter)">
+            <img
+                src="./../assets/userlogin.png"
+                class="w3-bar-item w3-circle w3-hide-small"
+                style="width:85px"
+            />
+            <div class="w3-bar-item">
+                <span class="person-spn">{{ group.name | capFirst }}</span>
+            </div>
+            </div>
         </li>
       </ul>
     </nav>
@@ -70,18 +67,18 @@
       <div class="wrapper t-chat" style="overflow-y: scroll; left: 0; width: 94vw; height: 100%">
         <h1 class="chat-title text-center">{{ chatName }}</h1>
         <div 
-            class="speechbubble sent"
-            v-for="msg in chat"
+            v-bind:class="{sent: msg.user_id == userId, recived: msg.user_id != userId}" 
+            class="speechbubble" 
+            v-for="msg in chat" 
             v-bind:key="msg"
         >
           <p v-if="msg.content">
             {{ msg.content }}
-            <span
-              class="username"
-            >
-                {{ msg.name + " " + msg.surname | capFirst }}
-                <br>
-                {{ msg.msg_time | dateFromNow }}
+            <span class="username">
+              {{ msg.name + " " + msg.surname | capFirst }}
+              <br />
+              {{ msg.msg_time | dateFromNow }}
+              <span v-if="msg.user_id == userId">
                 |&nbsp;
                 <i
                     v-tooltip="'delete chat'"
@@ -94,6 +91,7 @@
                     class="rmv-btn id orange edit icon"
                     v-on:click="editChat(msg.id)"
                 ></i>
+              </span>
             </span>
           </p>
         </div>
@@ -106,7 +104,7 @@
       </div>
     </div>
     <div v-else class="container-cstm">
-        <h1 style="font-size: 3vw !important" class="chat-title text-center">>>Pick to chat</h1>
+      <h1 style="font-size: 3vw !important" class="chat-title text-center">>>Pick to chat</h1>
     </div>
   </div>
 </template>
@@ -116,9 +114,10 @@ export default {
   data() {
     return {
       groups: [],
-      groupsForDisplay: [],
       chat: [],
-      chatName: null
+      userId: null,
+      chatName: null,
+      chatFilter: ""
     };
   },
   created: function() {
@@ -133,7 +132,8 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-          this.groups = response.result;
+          this.groups = response.result.groups;
+          this.userId = response.result.id
         });
     },
     deleteChat(chatId) {
@@ -147,29 +147,27 @@ export default {
           this.groups = response.result;
         });
     },
-    deleteChat(id) {
-      console.log("edit chat", id)
+    editChat(id) {
+      console.log("edit chat", id);
     },
     search() {
       alert("mjau");
     },
     openMsg(id, cName = "Random Chat") {
-        this.chatName = cName;
-        fetch("http://localhost:3000/api/get/get-messages", {
-            method: "POST",
-            body: JSON.stringify({ 
-                "tokenString": sessionStorage.getItem("_tAuth"),
-                "id": id
-            }),
-            headers: { "Content-Type": "application/json" }
-        })
-            .then(res => res.json())
-            .then(response => {
-                this.chat = response.result;
-                console.log(this.chat);
-            });
-        
-
+      this.chatName = cName;
+      fetch("http://localhost:3000/api/get/get-messages", {
+        method: "POST",
+        body: JSON.stringify({
+          tokenString: sessionStorage.getItem("_tAuth"),
+          id: id
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          this.chat = response.result;
+          console.log(this.chat);
+        });
     },
     logOut() {
       window.location = "/login";

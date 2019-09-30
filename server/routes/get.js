@@ -41,7 +41,8 @@ class DBMethods {
                 'm.content',
                 'u.name',
                 'u.surname',
-                'm.msg_time'
+                'm.msg_time',
+                'm.user_id'
             ]).from('groups g')
                 .join('messages m', 'm.group_id=g.id', 'left')
                 .join('users u', 'm.user_id=u.id', 'left')
@@ -179,7 +180,10 @@ router.post('/get-chat-groups', async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getChatGroups(token)
+        result: {
+            groups: await DBMethods.getChatGroups(token),
+            id: token._id
+        }
     })
 });
 
