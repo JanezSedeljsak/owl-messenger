@@ -43,7 +43,7 @@ export default {
   methods: {
     fetchData() {
       fetch("http://localhost:3000/api/get/get-people", {
-        method: "GET",
+        method: "POST",
         body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
         headers: { "Content-Type": "application/json" }
       })
