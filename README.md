@@ -20,7 +20,7 @@ Follows some principles from Telegram and such apps...
 
 ## Built With
 
-*![alt text](https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png) vue
+*![alt text](https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png =50x50) vue
 * express
 * semantic ui 
 * some random js libraries
