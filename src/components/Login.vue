@@ -12,13 +12,18 @@
         <label>Geslo</label>
         <input type="password" v-model="form.pass" placeholder="Geslo..." />
       </div>
-      <button class="ui primary button" v-on:click="login()" type="submit">Prijava</button>
-      <button class="ui primary button" v-on:click="fb()" type="submit">Facebook</button>
-      <button
-        class="ui secondary button"
-        v-on:click="moveToRegistration()"
-        type="button"
-      >Pojdi na registracijo</button>
+      <button v-tooltip="'Default login'" class="rnd-btn ui primary button" v-on:click="login()" type="submit">
+        <i class="key icon"></i>
+      </button>
+      <button v-tooltip="'Facebook login'" class="rnd-btn ui blue button" v-on:click="fbAuth()" type="submit">
+        <i class="facebook f icon"></i>
+      </button>
+      <button v-tooltip="'Google login'" class="rnd-btn ui red button" v-on:click="googleAuth()" type="submit">
+        <i class="google icon"></i>
+      </button>
+      <button v-tooltip="'Go to register'" class="rnd-btn ui secondary button" v-on:click="moveToRegistration()" type="button">
+        <i class="pencil alternate icon"></i>
+      </button>
     </form>
   </div>
 </template>
@@ -37,7 +42,7 @@ export default {
     moveToRegistration() {
       window.location = "/register";
     },
-    fb() {
+    fbAuth() {
       window.fbAsyncInit = function() {
         FB.init({
           appId: "2425422854217017",
@@ -60,6 +65,9 @@ export default {
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
+    },
+    googleAuth() {
+        console.log("#todo");
     },
     login() {
       window.event.preventDefault();
