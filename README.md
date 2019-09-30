@@ -3,6 +3,8 @@
 It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....</br>
 Follows some principles from Telegram and such apps...
 
+![alt text](https://github.com/JanezSedeljsak/owl-messenger/blob/master/site.png)
+
 ## Getting Started
 
 > 1. Download the project</br>
@@ -17,7 +19,6 @@ Follows some principles from Telegram and such apps...
 * Some kind of a mySQL server
 
 ## Built With
-
 * vue
 * express
 * semantic ui 
