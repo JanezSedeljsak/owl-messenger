@@ -19,11 +19,6 @@ Follows some principles from Telegram and such apps...
 * Some kind of a mySQL server
 
 ## Built With
-![alt text](https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png | width=100)
-![alt text](https://s3-ap-south-1.amazonaws.com/eww-wp/wp-content/uploads/2018/05/27091009/express-1.png | width=100)
-![alt text](https://www.321webmarketing.com/wp-content/themes/321-web-marketing/assets/images/semantic-logo-256.png | width=100)
-![alt text](http://pngimg.com/uploads/mysql/mysql_PNG18.png | width=100)
-
 * vue
 * express
 * semantic ui 
