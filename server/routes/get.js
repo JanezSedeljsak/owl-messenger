@@ -82,6 +82,18 @@ class DBMethods {
         });
     }
 
+    static deleteChatById(id) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+
+            qb.delete('messages', {'id': id}, (err, res) => {
+                qb.release();
+                if (err) resolve(err);
+                else resolve(res)
+            });
+        });
+    }
+
     static getYourGroups() {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
@@ -122,6 +134,14 @@ router.get('/get-groups', async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getGroups(token)
+    })
+});
+
+
+router.post('/delete-chat', async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.deleteChatById(req.body.id)
     })
 });
 

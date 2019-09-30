@@ -88,6 +88,12 @@
                     class="rmv-btn id red remove icon"
                     v-on:click="deleteChat(msg.id)"
                 ></i>
+                |&nbsp;
+                <i
+                    v-tooltip="'edit chat'"
+                    class="rmv-btn id orange edit icon"
+                    v-on:click="editChat(msg.id)"
+                ></i>
             </span>
           </p>
         </div>
@@ -130,8 +136,19 @@ export default {
           this.groups = response.result;
         });
     },
+    deleteChat(chatId) {
+      fetch("http://localhost:3000/api/get/delete-chat", {
+        method: "POST",
+        body: JSON.stringify({ id: chatId }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          this.groups = response.result;
+        });
+    },
     deleteChat(id) {
-        console.log("delete chat", id)
+      console.log("edit chat", id)
     },
     search() {
       alert("mjau");
