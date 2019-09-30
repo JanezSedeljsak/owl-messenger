@@ -195,10 +195,7 @@ export default {
       this.editMsg = id;
       this.ConfirmButton = this.ConfirmButton != "Update" ? "Update" : "Send";
     },
-    openMsg(id, cName = "Random Chat") {
-      this.ConfirmButton = "Send";
-      this.chatName = cName;
-      this.pickedChat = id;
+    getMessages(id) {
       fetch("http://localhost:3000/api/get/get-messages", {
         method: "POST",
         body: JSON.stringify({
@@ -212,6 +209,12 @@ export default {
           this.chat = response.result;
           console.log(this.chat);
         });
+    },
+    openMsg(id, cName = "Random Chat") {
+      this.ConfirmButton = "Send";
+      this.chatName = cName;
+      this.pickedChat = id;
+      this.getMessages(id);
     },
     logOut() {
       window.location = "/login";
