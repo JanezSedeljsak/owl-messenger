@@ -1,3 +1,5 @@
+<img src="https://github.com/matiassingers/awesome-readme/blob/master/icon.png" align="right" />
+
 # OWL Messenger
 
 It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....</br>
@@ -23,6 +25,10 @@ Follows some principles from Telegram and such apps...
 * express
 * semantic ui 
 * some random js libraries
+
+## License
+
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Authors
 
