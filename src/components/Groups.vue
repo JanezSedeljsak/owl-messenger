@@ -1,5 +1,6 @@
 <template>
   <div style="padding: 2vw">
+    <h1 class="ui dividing header">Groups</h1>
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
@@ -11,7 +12,7 @@
       </div>
       <div style="float: left" class="ui category search">
         <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Search groups..." />
+          <input class="prompt" v-model="filterValue" type="text" placeholder="Search groups..." />
           <i class="search icon"></i>
         </div>
         <div class="results"></div>
@@ -20,10 +21,10 @@
     <br />
     <br />
     <div style="clear:both" class="ui middle aligned divided list">
-      <div v-for="x in 10" v-bind:key="x" class="item">
+      <div v-for="(group, $index) in groups.filter(x => x.name.includes(filterValue))" v-bind:key="$index" class="item">
         <img class="list-img ui avatar image" src="./../assets/group.png" />
         <div class="content">
-          <a class="header">Random group</a>
+          <a class="header">{{ group.name | capFirst }}</a>
         </div>
         <button style="float: right" class="ui primary button">Join</button>
       </div>
@@ -34,9 +35,27 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+        groups: [],
+        filterValue: ""
+    };
+  },
+  created: function() {
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      fetch("http://localhost:3000/api/get/get-groups", {
+        method: "POST",
+        body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          this.groups = response.result;
+          console.log(response);
+        });
+    },
     moveUrl: link =>
       window.location.pathname != link ? (window.location = link) : null,
     search() {

@@ -1,5 +1,6 @@
 <template>
   <div style="padding: 2vw">
+    <h1 class="ui dividing header">Your Groups</h1>
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float:left" class="fields">

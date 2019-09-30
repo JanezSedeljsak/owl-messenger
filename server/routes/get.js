@@ -87,7 +87,7 @@ class DBMethods {
                 });
         });
     }
-    static getGroups(id) {
+    static getGroups(token) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
@@ -154,12 +154,21 @@ class DBMethods {
     }
 }
 
-router.get("/get-groups", async (req, res, next) => {
+router.post("/get-groups", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
-    res.status(200).json({
-        ok: true,
-        result: await DBMethods.getGroups(token)
-    });
+    console.log("tle smo");
+    if(token) {
+        res.status(200).json({
+            ok: true,
+            result: await DBMethods.getGroups(token)
+        });
+    } else {
+        res.status(200).json({
+            ok: false,
+            result: "naw fam"
+        }); 
+    }
+
 });
 
 router.post("/delete-chat", async (req, res, next) => {
@@ -178,6 +187,7 @@ router.post("/update-chat", async (req, res, next) => {
 });
 
 router.post("/get-people", async (req, res, next) => {
+    console.log("people call");
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
