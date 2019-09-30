@@ -1,31 +1,31 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const settings = require("./connect");
-const QueryBuilder = require('node-querybuilder');
-const CryptoJS = require('crypto-js');
-const moment = require('moment');
+const QueryBuilder = require("node-querybuilder");
+const CryptoJS = require("crypto-js");
+const moment = require("moment");
 
-const hash = pass => passwordHash.generate(pass)
+const hash = pass => passwordHash.generate(pass);
 
 const generateToken = userObj => {
     let token = CryptoJS.AES.encrypt(JSON.stringify(userObj), "t3l3gr4m4PP");
     return token.toString();
-}
+};
 
 const parseToken = token => {
-    let userObj = JSON.parse(CryptoJS.AES.decrypt(token, "t3l3gr4m4PP").toString(CryptoJS.enc.Utf8));
+    let userObj = JSON.parse(
+        CryptoJS.AES.decrypt(token, "t3l3gr4m4PP").toString(CryptoJS.enc.Utf8)
+    );
     return userObj;
-}
+};
 
 class DBMethods {
     static getChatGroups(token) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                'g.name',
-                'g.id'
-            ]).from('groups g')
+            qb.select(["g.name", "g.id"])
+                .from("groups g")
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -35,15 +35,15 @@ class DBMethods {
 
     static sendMessage(data, token) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
             const input = {
                 content: data.content,
                 msg_time: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
                 group_id: data.group,
                 user_id: token._id
             };
-        
-            qb.returning('id').insert('messages', input, (err, res) => {
+
+            qb.returning("id").insert("messages", input, (err, res) => {
                 if (err) resolve(err);
                 else resolve(res);
             });
@@ -52,20 +52,21 @@ class DBMethods {
 
     static getMessages(token, groupId) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
             qb.select([
-                'm.id',
-                'm.content',
-                'u.name',
-                'u.surname',
-                'm.msg_time',
-                'm.user_id'
-            ]).from('groups g')
-                .join('messages m', 'm.group_id=g.id', 'left')
-                .join('users u', 'm.user_id=u.id', 'left')
-                .where({ 'g.id': groupId })
-                .order_by('m.msg_time')
+                "m.id",
+                "m.content",
+                "u.name",
+                "u.surname",
+                "m.msg_time",
+                "m.user_id"
+            ])
+                .from("groups g")
+                .join("messages m", "m.group_id=g.id", "left")
+                .join("users u", "m.user_id=u.id", "left")
+                .where({ "g.id": groupId })
+                .order_by("m.msg_time")
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -73,15 +74,13 @@ class DBMethods {
         });
     }
 
-
     static getGroupById(id) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                'g name'
-            ]).from('groups g')
-                .where({ 'g.id': id })
+            qb.select(["g name"])
+                .from("groups g")
+                .where({ "g.id": id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -90,11 +89,10 @@ class DBMethods {
     }
     static getGroups(id) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                'g.name'
-            ]).from('groups g')
+            qb.select(["g.name"])
+                .from("groups g")
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -104,42 +102,50 @@ class DBMethods {
 
     static deleteChatById(id) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.delete('messages', {'id': id}, (err, res) => {
+            qb.delete("messages", { id: id }, (err, res) => {
                 if (err) resolve(err);
-                else resolve(res)
+                else resolve(res);
+            });
+        });
+    }
+
+    static updateMessage(_id, _content) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            const data = {
+                content: _content,
+            };
+
+            qb.update("messages", data, { id: _id }, (err, res) => { 
+                resolve(err ? err : res);
             });
         });
     }
 
     static getYourGroups() {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                'g name'
-            ])
-                .from('groups g')
-                .where({ 'g.admin': id })
+            qb.select(["g name"])
+                .from("groups g")
+                .where({ "g.admin": id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
                 });
-
-
         });
     }
 
     static getPeople(token) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                'u.name',
-                'u.surname'
-            ]).from('users u')
-                .where({ 'u.id !=': token._id })
+            qb.select(["u.name", "u.surname"])
+                .from("users u")
+                .where({ "u.id !=": token._id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -148,62 +154,69 @@ class DBMethods {
     }
 }
 
-router.get('/get-groups', async (req, res, next) => {
+router.get("/get-groups", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
         result: await DBMethods.getGroups(token)
-    })
+    });
 });
 
-
-router.post('/delete-chat', async (req, res, next) => {
+router.post("/delete-chat", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.deleteChatById(req.body.id)
-    })
+    });
 });
 
-router.post('/get-people', async (req, res, next) => {
+router.post("/update-chat", async (req, res, next) => {
+    console.log(req.body);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.updateMessage(req.body.data.msgId, req.body.data.content)
+    });
+});
+
+router.post("/get-people", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
         result: await DBMethods.getPeople(token)
-    })
+    });
 });
 
-router.get('/get-your-groups', async (req, res, next) => {
+router.get("/get-your-groups", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getYourGroups()
     });
 });
 
-router.post('/get-group-by-id', async (req, res, next) => {
+router.post("/get-group-by-id", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getGroupById(req.body.id)
-    })
+    });
 });
 
-router.post('/send-message', async (req, res, next) => {
+router.post("/send-message", async (req, res, next) => {
     console.log("baje smo pršli not", req.body);
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
         result: await DBMethods.sendMessage(req.body.data, token)
-    })
+    });
 });
 
-router.post('/get-messages', async (req, res, next) => {
+router.post("/get-messages", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
         result: await DBMethods.getMessages(req.body.tokenString, req.body.id)
-    })
+    });
 });
 
-router.post('/get-chat-groups', async (req, res, next) => {
+router.post("/get-chat-groups", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
@@ -211,7 +224,7 @@ router.post('/get-chat-groups', async (req, res, next) => {
             groups: await DBMethods.getChatGroups(token),
             id: token._id
         }
-    })
+    });
 });
 
 module.exports = router;

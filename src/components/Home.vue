@@ -89,7 +89,7 @@
                 <i
                   v-tooltip="'edit chat'"
                   class="rmv-btn id orange edit icon"
-                  v-on:click="editChat(msg.id)"
+                  v-on:click="editChat(msg.content, msg.id)"
                 ></i>
               </span>
             </span>
@@ -99,7 +99,8 @@
       <div style="z-index: 3" class="footer-send ui right labeled input">
         <input type="text" v-model="msgInput" class="msg-input" placeholder="Type message.." />
         <div v-on:click="sendChat()" style="width: 10vw" class="ui teal button">
-          <i class="paper plane icon"></i>Send
+          <i class="paper plane icon"></i>
+          {{ ConfirmButton }}
         </div>
       </div>
     </div>
@@ -119,7 +120,9 @@ export default {
       chatName: null,
       chatFilter: "",
       msgInput: "",
-      pickedChat: null
+      pickedChat: null,
+      ConfirmButton: "Send",
+      editMsg: null
     };
   },
   created: function() {
@@ -140,24 +143,43 @@ export default {
     },
     sendChat() {
       let msg = this.msgInput;
-      this.msgInput = "";
-      fetch("http://localhost:3000/api/get/send-message", {
-        method: "POST",
-        body: JSON.stringify({ 
+      if (this.ConfirmButton != "Update") {
+        this.msgInput = "";
+        fetch("http://localhost:3000/api/get/send-message", {
+          method: "POST",
+          body: JSON.stringify({
             tokenString: sessionStorage.getItem("_tAuth"),
             data: {
-                content: msg,
-                group: this.pickedChat
+              content: msg,
+              group: this.pickedChat
             }
-        }),
-        headers: { "Content-Type": "application/json" }
-      })
-        .then(res => res.json())
-        .then(response => {
+          }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(res => res.json())
+          .then(response => {
             this.openMsg(this.pickedChat, this.chatName);
-        });
+          });
+      } else {
+        fetch("http://localhost:3000/api/get/update-chat", {
+          method: "POST",
+          body: JSON.stringify({
+            tokenString: sessionStorage.getItem("_tAuth"),
+            data: {
+              content: msg,
+              msgId: this.editMsg
+            }
+          }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(res => res.json())
+          .then(response => {
+            this.openMsg(this.pickedChat, this.chatName);
+          });
+      }
     },
     deleteChat(chatId) {
+      this.ConfirmButton = "Send";
       fetch("http://localhost:3000/api/get/delete-chat", {
         method: "POST",
         body: JSON.stringify({ id: chatId }),
@@ -165,13 +187,16 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-            this.openMsg(this.pickedChat, this.chatName);
+          this.openMsg(this.pickedChat, this.chatName);
         });
     },
-    editChat(id) {
-      console.log("edit chat", id);
+    editChat(content, id) {
+      this.msgInput = content;
+      this.editMsg = id;
+      this.ConfirmButton = this.ConfirmButton != "Update" ? "Update" : "Send";
     },
     openMsg(id, cName = "Random Chat") {
+      this.ConfirmButton = "Send";
       this.chatName = cName;
       this.pickedChat = id;
       fetch("http://localhost:3000/api/get/get-messages", {
