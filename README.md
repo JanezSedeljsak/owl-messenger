@@ -32,4 +32,7 @@ Follows some principles from Telegram and such apps...
 
 ## Authors
 
-* **Janez Sedeljsak** - [GitHub Profile](https://github.com/JanezSedeljsak)
+```JS
+const AUTHOR = 'Janez Sedeljsak' //https://github.com/JanezSedeljsak;
+```
+
