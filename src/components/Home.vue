@@ -50,46 +50,46 @@
           v-bind:key="$index"
           v-tooltip="`Open \'${group.name.toUpperCase() || 'Random Chat' }\' chat`"
         >
-            <div v-if="group.name.includes(chatFilter)">
+          <div v-if="group.name.includes(chatFilter)">
             <img
-                src="./../assets/userlogin.png"
-                class="w3-bar-item w3-circle w3-hide-small"
-                style="width:85px"
+              src="./../assets/userlogin.png"
+              class="w3-bar-item w3-circle w3-hide-small"
+              style="width:85px"
             />
             <div class="w3-bar-item">
-                <span class="person-spn">{{ group.name | capFirst }}</span>
+              <span class="person-spn">{{ group.name | capFirst }}</span>
             </div>
-            </div>
+          </div>
         </li>
       </ul>
     </nav>
     <div v-if="chat.length" class="container-cstm">
       <div class="wrapper t-chat" style="overflow-y: scroll; left: 0; width: 94vw; height: 100%">
         <h1 class="chat-title text-center">{{ chatName }}</h1>
-        <div 
-            v-bind:class="{sent: msg.user_id == userId, recived: msg.user_id != userId}" 
-            class="speechbubble" 
-            v-for="(msg, $index) in chat" 
-            v-bind:key="$index"
+        <div
+          v-bind:class="{sent: msg.user_id == userId, recived: msg.user_id != userId}"
+          class="speechbubble"
+          v-for="(msg, $index) in chat"
+          v-bind:key="$index"
         >
           <p v-if="msg.content">
             {{ msg.content }}
             <span class="username">
-              {{ msg.name + " " + msg.surname }}
+              {{ msg.name + " " + msg.surname | capFirst }}
               <br />
               {{ msg.msg_time | dateFromNow }}
               <span v-if="msg.user_id == userId">
                 |&nbsp;
                 <i
-                    v-tooltip="'delete chat'"
-                    class="rmv-btn id red remove icon"
-                    v-on:click="deleteChat(msg.id)"
+                  v-tooltip="'delete chat'"
+                  class="rmv-btn id red remove icon"
+                  v-on:click="deleteChat(msg.id)"
                 ></i>
                 |&nbsp;
                 <i
-                    v-tooltip="'edit chat'"
-                    class="rmv-btn id orange edit icon"
-                    v-on:click="editChat(msg.id)"
+                  v-tooltip="'edit chat'"
+                  class="rmv-btn id orange edit icon"
+                  v-on:click="editChat(msg.id)"
                 ></i>
               </span>
             </span>
@@ -97,8 +97,8 @@
         </div>
       </div>
       <div style="z-index: 3" class="footer-send ui right labeled input">
-        <input type="text" class="msg-input" placeholder="Type message.." />
-        <div style="width: 10vw" class="ui teal button">
+        <input type="text" v-model="msgInput" class="msg-input" placeholder="Type message.." />
+        <div v-on:click="sendChat()" style="width: 10vw" class="ui teal button">
           <i class="paper plane icon"></i>Send
         </div>
       </div>
@@ -117,7 +117,9 @@ export default {
       chat: [],
       userId: null,
       chatName: null,
-      chatFilter: ""
+      chatFilter: "",
+      msgInput: "",
+      pickedChat: null
     };
   },
   created: function() {
@@ -133,7 +135,26 @@ export default {
         .then(res => res.json())
         .then(response => {
           this.groups = response.result.groups;
-          this.userId = response.result.id
+          this.userId = response.result.id;
+        });
+    },
+    sendChat() {
+      let msg = this.msgInput;
+      this.msgInput = "";
+      fetch("http://localhost:3000/api/get/send-message", {
+        method: "POST",
+        body: JSON.stringify({ 
+            tokenString: sessionStorage.getItem("_tAuth"),
+            data: {
+                content: msg,
+                group: this.pickedChat
+            }
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+            this.openMsg(this.pickedChat, this.chatName);
         });
     },
     deleteChat(chatId) {
@@ -144,18 +165,15 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-          this.groups = response.result;
-          this.fetchData();
+            this.openMsg(this.pickedChat, this.chatName);
         });
     },
     editChat(id) {
       console.log("edit chat", id);
     },
-    search() {
-      alert("mjau");
-    },
     openMsg(id, cName = "Random Chat") {
       this.chatName = cName;
+      this.pickedChat = id;
       fetch("http://localhost:3000/api/get/get-messages", {
         method: "POST",
         body: JSON.stringify({

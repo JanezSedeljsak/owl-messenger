@@ -3,6 +3,7 @@ const router = express.Router();
 const settings = require("./connect");
 const QueryBuilder = require('node-querybuilder');
 const CryptoJS = require('crypto-js');
+const moment = require('moment');
 
 const hash = pass => passwordHash.generate(pass)
 
@@ -29,6 +30,23 @@ class DBMethods {
                     qb.disconnect();
                     resolve(result);
                 });
+        });
+    }
+
+    static sendMessage(data, token) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, 'mysql', 'single');
+            const input = {
+                content: data.content,
+                msg_time: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+                group_id: data.group,
+                user_id: token._id
+            };
+        
+            qb.returning('id').insert('messages', input, (err, res) => {
+                if (err) resolve(err);
+                else resolve(res);
+            });
         });
     }
 
@@ -165,6 +183,15 @@ router.post('/get-group-by-id', async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getGroupById(req.body.id)
+    })
+});
+
+router.post('/send-message', async (req, res, next) => {
+    console.log("baje smo pršli not", req.body);
+    let token = await parseToken(req.body.tokenString);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.sendMessage(req.body.data, token)
     })
 });
 
