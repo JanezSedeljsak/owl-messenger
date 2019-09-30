@@ -196,6 +196,7 @@ export default {
       this.ConfirmButton = this.ConfirmButton != "Update" ? "Update" : "Send";
     },
     getMessages(id) {
+      const self_id = id;
       fetch("http://localhost:3000/api/get/get-messages", {
         method: "POST",
         body: JSON.stringify({
@@ -209,6 +210,12 @@ export default {
           this.chat = response.result;
           console.log(this.chat);
         });
+
+        // hacky way of refreshing chats //but it works kinda so yea
+        if(self_id == this.pickedChat && !!this.chatName) {
+            setTimeout(() => (self_id == this.pickedChat && !!this.chatName) ? this.getMessages(self_id) : null, 5000);
+        }
+      
     },
     openMsg(id, cName = "Random Chat") {
       this.ConfirmButton = "Send";
