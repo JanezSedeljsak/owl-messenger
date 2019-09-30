@@ -48,7 +48,7 @@
           class="person-li w3-bar"
           v-for="(group, $index) in groups"
           v-bind:key="$index"
-          v-tooltip="`Open \'${group.name.toUpperCase() }\' chat`"
+          v-tooltip="`Open \'${group.name.toUpperCase() || 'Random Chat' }\' chat`"
         >
             <div v-if="group.name.includes(chatFilter)">
             <img
@@ -69,13 +69,13 @@
         <div 
             v-bind:class="{sent: msg.user_id == userId, recived: msg.user_id != userId}" 
             class="speechbubble" 
-            v-for="msg in chat" 
-            v-bind:key="msg"
+            v-for="(msg, $index) in chat" 
+            v-bind:key="$index"
         >
           <p v-if="msg.content">
             {{ msg.content }}
             <span class="username">
-              {{ msg.name + " " + msg.surname | capFirst }}
+              {{ msg.name + " " + msg.surname }}
               <br />
               {{ msg.msg_time | dateFromNow }}
               <span v-if="msg.user_id == userId">
@@ -145,6 +145,7 @@ export default {
         .then(res => res.json())
         .then(response => {
           this.groups = response.result;
+          this.fetchData();
         });
     },
     editChat(id) {

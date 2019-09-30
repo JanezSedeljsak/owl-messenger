@@ -47,6 +47,7 @@ class DBMethods {
                 .join('messages m', 'm.group_id=g.id', 'left')
                 .join('users u', 'm.user_id=u.id', 'left')
                 .where({ 'g.id': groupId })
+                .order_by('m.msg_time')
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -88,7 +89,6 @@ class DBMethods {
             const qb = new QueryBuilder(settings, 'mysql', 'single');
 
             qb.delete('messages', {'id': id}, (err, res) => {
-                qb.release();
                 if (err) resolve(err);
                 else resolve(res)
             });
