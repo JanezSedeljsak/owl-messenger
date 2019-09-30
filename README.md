@@ -19,8 +19,9 @@ Follows some principles from Telegram and such apps...
 * Some kind of a mySQL server
 
 ## Built With
+![](https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png =250x250)
 
-*![alt text](https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png =50x50) vue
+* vue
 * express
 * semantic ui 
 * some random js libraries
