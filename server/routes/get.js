@@ -50,6 +50,30 @@ class DBMethods {
         });
     }
 
+    static getPorfile(token) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            qb.select([
+                "m.id",
+                "m.content",
+                "u.name",
+                "u.surname",
+                "m.msg_time",
+                "m.user_id"
+            ])
+                .from("groups g")
+                .join("messages m", "m.group_id=g.id", "left")
+                .join("users u", "m.user_id=u.id", "left")
+                .where({ "g.id": groupId })
+                .order_by("m.msg_time")
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
     static getMessages(token, groupId) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
