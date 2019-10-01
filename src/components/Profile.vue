@@ -1,12 +1,17 @@
 <template>
   <div style="padding: 2vw">
     <div class="ui secondary pointing menu">
+      <a v-on:click="moveUrl('/')" class="item">Base</a>
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
       <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
       <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
       <a v-on:click="moveUrl('/chats')" class="item">Members</a>
       <div class="right menu">
-        <a v-on:click="moveUrl('/profile')" style="color: #559; font-weight: bold" class="item">Janez Sedeljsak</a>
+        <a
+          v-on:click="moveUrl('/profile')"
+          style="color: #559; font-weight: bold"
+          class="item"
+        >Janez Sedeljsak</a>
         <a v-on:click="moveUrl('/login')" class="item">Logout</a>
       </div>
     </div>

@@ -1,6 +1,7 @@
 <template>
   <div style="padding: 2vw">
     <div class="ui secondary pointing menu">
+      <a v-on:click="moveUrl('/')" class="item">Base</a>
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
       <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
       <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
