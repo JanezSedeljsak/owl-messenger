@@ -4,7 +4,7 @@
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
-          <button v-on:click="moveUrl('/your-groups')" class="ui grey button">Your Groups</button>
+          <button v-on:click="moveUrl('/your-chats')" class="ui grey button">Your Groups</button>
         </div>
         <div style="float: left" class="fields">
           <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
@@ -26,7 +26,7 @@
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
-        <button style="float: right" class="ui primary button">Join</button>
+        <button style="float: right" class="ui primary button">Edit</button>
       </div>
     </div>
   </div>

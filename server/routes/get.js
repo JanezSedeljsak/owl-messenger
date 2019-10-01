@@ -149,13 +149,27 @@ class DBMethods {
         });
     }
 
-    static getYourGroups() {
+    static getProfileData(token) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
             qb.select(["g name"])
+                .from("users s")
+                .where({ "g.id": id })
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
+    static getYourGroups(token) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            qb.select(["g name", "g.id"])
                 .from("groups g")
-                .where({ "g.admin": id })
+                .where({ "g.admin": token._id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);

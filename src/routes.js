@@ -10,11 +10,11 @@ import YourGroups from "./components/YourGroups.vue";
 export const routes = [
     { path: "/home", component: Home },
     { path: "/register", component: Register },
-    { path: "/groups", component: Groups },
+    { path: "/chats", component: Groups },
     { path: "/people", component: People },
     { path: "/profile", component: Profile },
     { path: "/login", component: Login },
     { path: "/group/:id", component: GroupEdit },
-    { path: "/your-groups", component: YourGroups },
+    { path: "/your-chats", component: YourGroups },
     { path: '*', redirect: '/login' }
 ];
