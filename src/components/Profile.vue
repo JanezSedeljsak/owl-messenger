@@ -57,6 +57,17 @@ export default {
         .then(response => {
           this.form = response.result[0];
         });
+    },
+    updateProfile() {
+      fetch("http://localhost:3000/api/get/update-profile-data", {
+        method: "POST",
+        body: JSON.stringify({ form: this.form }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+        });
     }
   }
 };

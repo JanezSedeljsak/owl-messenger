@@ -1,14 +1,22 @@
 <template>
   <form class="ui form">
-    <h1 class="ui dividing header">User information</h1>
+    <h1 class="ui dividing header">Chat Edit</h1>
     <div class="field">
-      <label>Name</label>
+      <label>Locked data</label>
       <div class="two fields">
         <div class="field">
-          <input type="text" placeholder="First Name" />
+          <input type="text" v-model="form.name" placeholder="Chat Name" />
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Locked data</label>
+      <div class="two fields">
+        <div class="field">
+          <input type="text" v-model="form.admin" placeholder="Chat Admin" />
         </div>
         <div class="field">
-          <input type="text" placeholder="Last Name" />
+          <input type="text" v-model="form.created_time" placeholder="Date created" />
         </div>
       </div>
     </div>
@@ -33,21 +41,24 @@
         </div>
       </div>
     </div>
+    <div class="field">
+      <label>Members</label>
+    </div>
   </form>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      form: null
+    };
+  },
+  created: function() {
+    this.fetchData();
   },
   methods: {
-    search() {
-      alert("mjau");
-    },
-    openMsg() {
-      console.log("neki");
-    }
+    fetchData() {}
   }
 };
 </script>
