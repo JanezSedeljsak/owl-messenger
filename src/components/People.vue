@@ -45,6 +45,7 @@
 
 <script>
 export default {
+  props: ["getMembers"],
   data() {
     return {
       people: [],
@@ -53,18 +54,34 @@ export default {
   },
   created: function() {
     this.fetchData();
+    console.log();
   },
   methods: {
     fetchData() {
-      fetch("http://localhost:3000/api/get/get-people", {
-        method: "POST",
-        body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
-        headers: { "Content-Type": "application/json" }
-      })
-        .then(res => res.json())
-        .then(response => {
-          this.people = response.result;
-        });
+      if (!!this._props.getMembers) {
+        fetch("http://localhost:3000/api/get/get-members", {
+          method: "POST",
+          body: JSON.stringify({ id: this.$route.params.id }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(res => res.json())
+          .then(response => {
+              console.log(response);
+            this.people = response.result;
+          });
+      } else {
+        fetch("http://localhost:3000/api/get/get-people", {
+          method: "POST",
+          body: JSON.stringify({
+            tokenString: sessionStorage.getItem("_tAuth")
+          }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(res => res.json())
+          .then(response => {
+            this.people = response.result;
+          });
+      }
     },
     search() {
       alert("mjau");

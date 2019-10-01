@@ -38,7 +38,13 @@
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
-        <button style="float: right" class="ui primary button" v-on:click="joinGroup(group.id)">Join</button>
+
+        <button style="float: right" class="ui primary button" v-on:click="joinGroup(group.id)">&nbsp;&nbsp;Join&nbsp;&nbsp;</button>
+        <button
+          style="float: right"
+          class="ui secondary button"
+          v-on:click="moveUrl(`/people/${group.id}`)"
+        >Members</button>
       </div>
       <div
         v-for="(group, $index) in groupsIn.filter(x => x.name.includes(filterValue))"
@@ -54,6 +60,11 @@
           class="ui primary button"
           v-on:click="leaveGroup(group.id)"
         >Leave</button>
+        <button
+          style="float: right"
+          class="ui secondary button"
+          v-on:click="moveUrl(`/people/${group.id}`)"
+        >Members</button>
       </div>
     </div>
   </div>

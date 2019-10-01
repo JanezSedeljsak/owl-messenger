@@ -126,11 +126,11 @@ class DBMethods {
     static getGroupsYouAreIn(token) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
-        
+
             qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
                 .from("groupsusers gu")
                 .join("groups g", "g.id=gu.group_id", "right")
-                .where({"gu.user_id": token._id})
+                .where({ "gu.user_id": token._id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result ? result : err);
@@ -145,7 +145,7 @@ class DBMethods {
             qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
                 .from("groupsusers gu")
                 .join("groups g", "g.id=gu.group_id", "right")
-                .where({"g.admin !=": token._id})
+                .where({ "g.admin !=": token._id })
                 .where_not_in("g.id", groupsIN.length ? groupsIN : ["fixInpt"])
                 .get((err, result) => {
                     qb.disconnect();
@@ -264,6 +264,22 @@ class DBMethods {
         });
     }
 
+    static getPeopleInChat(chatId) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            console.log(chatId, "271");
+            qb.select(["u.name", "u.surname"])
+                .from("users u")
+                .join("groupsusers g", "u.id=g.user_id", "right")
+                .where({ "g.group_id": chatId })
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result);
+                });
+        });
+    }
+
     static createGroup(token, name) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
@@ -284,7 +300,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.update("groups", {"name": _name}, { id: _id }, (err, res) => {
+            qb.update("groups", { "name": _name }, { id: _id }, (err, res) => {
                 resolve(err ? err : res);
             });
         });
@@ -319,7 +335,7 @@ router.post("/delete-chat", async (req, res, next) => {
 });
 
 router.post("/update-group", async (req, res, next) => {
-    
+
     res.status(200).json({
         ok: true,
         result: await DBMethods.updateGroup(req.body.id, req.body.name)
@@ -350,6 +366,13 @@ router.post("/get-people", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getPeople(token)
+    });
+});
+
+router.post("/get-members", async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getPeopleInChat(req.body.id)
     });
 });
 
@@ -418,7 +441,7 @@ router.post("/update-profile-data", async (req, res, next) => {
     let { name, surname } = req.body.form;
     res.status(200).json({
         ok: true,
-        result: await DBMethods.updateProfileData({name, surname} , token)
+        result: await DBMethods.updateProfileData({ name, surname }, token)
     });
 });
 

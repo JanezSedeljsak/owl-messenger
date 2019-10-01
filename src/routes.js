@@ -17,7 +17,7 @@ export const routes = [
     { path: "/login", component: Login },
     { path: "/chat-edit/:id", component: GroupEdit },
     { path: "/chat-create", component: GroupEdit },
-    { path: "/people/:id", component: People },
+    { path: "/people/:id", component: People,  props: { getMembers: true } },
     { path: "/your-chats", component: YourGroups },
     { path: "/", component: Base },
     { path: '*', redirect: '/' }
