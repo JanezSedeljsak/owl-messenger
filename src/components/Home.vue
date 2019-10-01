@@ -57,7 +57,11 @@
       </ul>
     </nav>
     <div v-if="chat.length" class="container-cstm">
-      <div class="wrapper t-chat" style="overflow-y: scroll; left: 0; width: 94vw; height: 100%">
+      <div
+        id="chatSpace"
+        class="wrapper t-chat"
+        style="overflow-y: scroll; left: 0; width: 94vw; height: 100%"
+      >
         <h1 class="chat-title text-center">{{ chatName }}</h1>
         <div
           v-bind:class="{sent: msg.user_id == userId, recived: msg.user_id != userId}"
@@ -136,8 +140,9 @@ export default {
     },
     sendChat() {
       let msg = this.msgInput;
+      if (!msg) return;
+      this.msgInput = "";
       if (this.ConfirmButton != "Update") {
-        this.msgInput = "";
         fetch("http://localhost:3000/api/get/send-message", {
           method: "POST",
           body: JSON.stringify({
@@ -204,11 +209,16 @@ export default {
           console.log(this.chat);
         });
 
-        // hacky way of refreshing chats //but it works kinda so yea
-        if(self_id == this.pickedChat && !!this.chatName) {
-            setTimeout(() => (self_id == this.pickedChat && !!this.chatName) ? this.getMessages(self_id) : null, 5000);
-        }
-      
+      // hacky way of refreshing chats //but it works kinda so yea
+      if (self_id == this.pickedChat && !!this.chatName) {
+        setTimeout(
+          () =>
+            self_id == this.pickedChat && !!this.chatName
+              ? this.getMessages(self_id)
+              : null,
+          5000
+        );
+      }
     },
     openMsg(id, cName = "Random Chat") {
       this.ConfirmButton = "Send";
