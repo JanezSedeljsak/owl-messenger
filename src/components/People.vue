@@ -16,7 +16,7 @@
         <a v-on:click="moveUrl('/login')" class="item">Logout</a>
       </div>
     </div>
-    <h1 class="ui dividing header">Other users</h1>
+    <h1 class="ui dividing header">Members{{":&nbsp;&nbsp;" + $route.params.chat | capitalize }}</h1>
     <div clss="row">
       <div style="float: left" class="ui category search">
         <div class="ui icon input">
@@ -34,9 +34,11 @@
         v-bind:key="$index"
         class="item"
       >
-        <img class="list-img ui avatar image" src="./../assets/userlogin.png" />
+        <img v-if="p.profile_img" class="list-img ui avatar image" v-bind:src="p.profile_img" />
+        <img v-else class="list-img ui avatar image" src="./../assets/userlogin.png" />
         <div class="content">
-          <a class="header">{{ p.name + " " + p.surname | capFirst }}</a>
+          <a class="ui h3 header">{{ p.name + " " + p.surname | capFirst }}</a>
+          <span style="font-weight: bold">{{ p.type }}</span>
         </div>
       </div>
     </div>

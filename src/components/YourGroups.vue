@@ -45,7 +45,7 @@
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
-        <button style="float: right" v-on:click="moveUrl(`/people/${group.id}`)" class="ui primary button">Members</button>
+        <button style="float: right" v-on:click="moveUrl(`/people/${group.id}/${group.name}`)" class="ui primary button">Members</button>
         <button style="float: right" v-on:click="moveUrl(`/chat-edit/${group.id}`)" class="ui secondary button">Edit</button>
       </div>
     </div>

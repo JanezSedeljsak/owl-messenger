@@ -254,7 +254,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["u.name", "u.surname"])
+            qb.select(["*"])
                 .from("users u")
                 .where({ "u.id !=": token._id })
                 .get((err, result) => {
@@ -269,7 +269,7 @@ class DBMethods {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
             console.log(chatId, "271");
-            qb.select(["u.name", "u.surname"])
+            qb.select(["*"])
                 .from("users u")
                 .join("groupsusers g", "u.id=g.user_id", "right")
                 .where({ "g.group_id": chatId })
