@@ -44,7 +44,7 @@
         <button
           style="float: right"
           class="ui secondary button"
-          v-on:click="moveUrl(`/people/${group.id}`)"
+          v-on:click="moveUrl(`/people/${group.id}/${group.name}`)"
         >Members</button>
       </div>
       <div

@@ -29,7 +29,7 @@ class DBMethods {
                 .join("")
                 .get((err, result) => {
                     qb.disconnect();
-                    resolve(result);
+                    resolve(result ? result : err);
                 });
         });
     }

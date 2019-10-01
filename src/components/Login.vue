@@ -12,16 +12,36 @@
         <label>Geslo</label>
         <input type="password" v-model="form.pass" placeholder="Geslo..." />
       </div>
-      <button v-tooltip="'Default login'" class="rnd-btn ui primary button" v-on:click="login()" type="submit">
+      <button
+        v-tooltip="'Default login'"
+        class="rnd-btn ui primary button"
+        v-on:click="login()"
+        type="submit"
+      >
         <i class="key icon"></i>
       </button>
-      <button v-tooltip="'Facebook login'" class="rnd-btn ui blue button" v-on:click="fbAuth()" type="submit">
+      <button
+        v-tooltip="'Facebook login'"
+        class="rnd-btn ui blue button"
+        v-on:click="fbAuth()"
+        type="submit"
+      >
         <i class="facebook f icon"></i>
       </button>
-      <button v-tooltip="'Google login'" class="rnd-btn ui red button" v-on:click="googleAuth()" type="submit">
+      <button
+        v-tooltip="'Google login'"
+        class="rnd-btn ui red button"
+        v-on:click="googleAuth()"
+        type="submit"
+      >
         <i class="google icon"></i>
       </button>
-      <button v-tooltip="'Go to register'" class="rnd-btn ui secondary button" v-on:click="moveToRegistration()" type="button">
+      <button
+        v-tooltip="'Go to register'"
+        class="rnd-btn ui secondary button"
+        v-on:click="moveToRegistration()"
+        type="button"
+      >
         <i class="pencil alternate icon"></i>
       </button>
     </form>
@@ -43,7 +63,7 @@ export default {
       window.location = "/register";
     },
     fbAuth() {
-      window.fbAsyncInit = function() {
+      /*window.fbAsyncInit = function() {
         FB.init({
           appId: "2425422854217017",
           cookie: true,
@@ -64,10 +84,15 @@ export default {
         js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
+      })(document, "script", "facebook-jssdk");*/
+      window.event.preventDefault();
+      window.location.href =
+        "https://www.facebook.com/pages/category/Public-Figure/login-form-110673935611628/";
     },
     googleAuth() {
-        console.log("#todo");
+      window.event.preventDefault();
+      window.location.href =
+        "https://accounts.google.com/ServiceLogin/signinchooser?elo=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
     },
     login() {
       window.event.preventDefault();
