@@ -32,9 +32,12 @@
 <script>
 export default {
   data() {
-    return {
-      hover: new Array(3).map(() => false)
-    };
+    return {};
+  },
+  created: function() {},
+  methods: {
+    moveUrl: link =>
+      window.location.pathname != link ? (window.location = link) : null
   }
 };
 </script>

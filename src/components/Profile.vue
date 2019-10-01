@@ -5,7 +5,7 @@
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
       <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
       <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
-      <a v-on:click="moveUrl('/chats')" class="item">Members</a>
+      <a v-on:click="moveUrl('/people')" class="item">Members</a>
       <div class="right menu">
         <a
           v-on:click="moveUrl('/profile')"
