@@ -33,10 +33,9 @@
         <label>Authorization</label>
         <div class="fields">
           <div class="twelve wide field">
-            <input type="text" v-model="form.email" placeholder="Email" />
-          </div>
-          <div class="four wide field">
-            <input type="password" placeholder="Password" />
+            <div class="field">
+              <a class="ui teal tag label">Email:&nbsp;{{ form.email }}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -44,7 +43,7 @@
         <label>Actions</label>
         <div class="fields">
           <div class="ui buttons">
-            <button class="ui positive button">Update</button>
+            <button v-on:click="updateProfile()" class="ui positive button">Update</button>
             <div class="or"></div>
             <button v-on:click="moveUrl('/home')" class="ui button">Cancel</button>
           </div>
@@ -58,7 +57,7 @@
 export default {
   data() {
     return {
-      form: null
+      form: {name: "", surname: "", email: ""}
     };
   },
   created: function() {
@@ -79,7 +78,10 @@ export default {
     updateProfile() {
       fetch("http://localhost:3000/api/get/update-profile-data", {
         method: "POST",
-        body: JSON.stringify({ form: this.form }),
+        body: JSON.stringify({
+          tokenString: sessionStorage.getItem("_tAuth"),
+          form: this.form
+        }),
         headers: { "Content-Type": "application/json" }
       })
         .then(res => res.json())

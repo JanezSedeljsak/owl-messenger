@@ -103,9 +103,9 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g.name"])
-                .from("groups g")
-                .where({ "g.id": id })
+            qb.select(["*"])
+                .from("groups")
+                .where({ "id": id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -223,6 +223,18 @@ class DBMethods {
         });
     }
 
+    static updateProfileData(form, token) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            console.log("230", form, token._id);
+
+            qb.update("users", form, { id: token._id }, (err, res) => {
+                resolve(err ? err : res);
+            });
+        });
+    }
+
     static getYourGroups(token) {
         console.log(token._id);
         return new Promise(async resolve => {
@@ -333,6 +345,7 @@ router.post("/get-your-chats", async (req, res, next) => {
 });
 
 router.post("/get-group-by-id", async (req, res, next) => {
+    console.log(req.body);
     res.status(200).json({
         ok: true,
         result: await DBMethods.getGroupById(req.body.id)
@@ -340,7 +353,6 @@ router.post("/get-group-by-id", async (req, res, next) => {
 });
 
 router.post("/send-message", async (req, res, next) => {
-    console.log("baje smo pršli not", req.body);
     let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
@@ -355,6 +367,17 @@ router.post("/get-messages", async (req, res, next) => {
         result: await DBMethods.getMessages(req.body.tokenString, req.body.id)
     });
 });
+
+
+router.post("/update-profile-data", async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
+    let { name, surname } = req.body.form;
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.updateProfileData({name, surname} , token)
+    });
+});
+
 
 router.post("/get-chat-groups", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);

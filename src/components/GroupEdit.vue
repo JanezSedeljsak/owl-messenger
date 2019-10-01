@@ -24,27 +24,8 @@
           <div class="field">
             <input type="text" v-model="form.name" placeholder="Chat Name" />
           </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Locked data</label>
-        <div class="two fields">
           <div class="field">
-            <input type="text" v-model="form.admin" placeholder="Chat Admin" />
-          </div>
-          <div class="field">
-            <input type="text" v-model="form.created_time" placeholder="Date created" />
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Authorization</label>
-        <div class="fields">
-          <div class="twelve wide field">
-            <input type="text" placeholder="Email" />
-          </div>
-          <div class="four wide field">
-            <input type="password" placeholder="Password" />
+            <a class="ui teal tag label">Date Created:&nbsp;{{ form.created_date | dateFormat }}</a>
           </div>
         </div>
       </div>
@@ -58,9 +39,6 @@
           </div>
         </div>
       </div>
-      <div class="field">
-        <label>Members</label>
-      </div>
     </form>
   </div>
 </template>
@@ -69,14 +47,26 @@
 export default {
   data() {
     return {
-      form: null
+      form: { name: "" }
     };
   },
   created: function() {
     this.fetchData();
   },
   methods: {
-    fetchData() {}
+    fetchData() {
+      console.log("ok");
+      fetch("http://localhost:3000/api/get/get-group-by-id", {
+        method: "POST",
+        body: JSON.stringify({ id: this.$route.params.id }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          this.form = response.result[0];
+        });
+    }
   }
 };
 </script>
