@@ -5,10 +5,10 @@
       <label>Name</label>
       <div class="two fields">
         <div class="field">
-          <input type="text" placeholder="First Name" />
+          <input type="text" v-model="form.name" placeholder="First Name" />
         </div>
         <div class="field">
-          <input type="text" placeholder="Last Name" />
+          <input type="text" v-model="form.surname" placeholder="Last Name" />
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <label>Authorization</label>
       <div class="fields">
         <div class="twelve wide field">
-          <input type="text" placeholder="Email" />
+          <input type="text" v-model="form.email" placeholder="Email" />
         </div>
         <div class="four wide field">
           <input type="password" placeholder="Password" />
@@ -39,14 +39,24 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      form: null
+    };
+  },
+  created: function() {
+    this.fetchData();
   },
   methods: {
-    search() {
-      alert("mjau");
-    },
-    openMsg() {
-      console.log("neki");
+    fetchData() {
+      fetch("http://localhost:3000/api/get/get-profile-data", {
+        method: "POST",
+        body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          this.form = response.result[0];
+        });
     }
   }
 };

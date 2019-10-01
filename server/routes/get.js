@@ -102,7 +102,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g name"])
+            qb.select(["g.name"])
                 .from("groups g")
                 .where({ "g.id": id })
                 .get((err, result) => {
@@ -153,9 +153,9 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g name"])
-                .from("users s")
-                .where({ "g.id": id })
+            qb.select(["*"])
+                .from("users")
+                .where({ "id": token._id })
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -164,10 +164,11 @@ class DBMethods {
     }
 
     static getYourGroups(token) {
+        console.log(token._id);
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g name", "g.id"])
+            qb.select(["g.name", "g.id"])
                 .from("groups g")
                 .where({ "g.admin": token._id })
                 .get((err, result) => {
@@ -233,10 +234,20 @@ router.post("/get-people", async (req, res, next) => {
     });
 });
 
-router.get("/get-your-groups", async (req, res, next) => {
+router.post("/get-profile-data", async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
     res.status(200).json({
         ok: true,
-        result: await DBMethods.getYourGroups()
+        result: await DBMethods.getProfileData(token)
+    });
+});
+
+router.post("/get-your-chats", async (req, res, next) => {
+    let token = await parseToken(req.body.tokenString);
+    console.log(await DBMethods.getYourGroups(token));
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getYourGroups(token)
     });
 });
 

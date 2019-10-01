@@ -1,10 +1,10 @@
 <template>
   <div style="padding: 2vw">
-    <h1 class="ui dividing header">Groups</h1>
+    <h1 class="ui dividing header">Chats</h1>
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
-          <button v-on:click="moveUrl('/your-chats')" class="ui grey button">Your Groups</button>
+          <button v-on:click="moveUrl('/your-chats')" class="ui grey button">Your Chats</button>
         </div>
         <div style="float: left" class="fields">
           <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
@@ -26,7 +26,7 @@
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
-        <button style="float: right" class="ui primary button">Edit</button>
+        <button style="float: right" class="ui primary button">Join</button>
       </div>
     </div>
   </div>
