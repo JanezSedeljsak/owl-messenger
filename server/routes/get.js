@@ -361,7 +361,7 @@ router.post("/get-chat-groups", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: {
-            groups: await DBMethods.getGroupsYouAreIn(token),
+            groups: [...await DBMethods.getGroupsYouAreIn(token), ...await DBMethods.getYourGroups(token)],
             id: token._id
         }
     });

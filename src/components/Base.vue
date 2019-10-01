@@ -1,6 +1,7 @@
 <template>
   <div style="padding: 2vw">
     <div class="ui secondary pointing menu">
+      <img src="./../assets/wide-logo.png" style="width: 7em; height: 3em" />
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
       <div class="right menu">
         <a v-on:click="moveUrl('/login')" class="item">Login</a>
