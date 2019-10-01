@@ -26,6 +26,7 @@ class DBMethods {
 
             qb.select(["g.name", "g.id"])
                 .from("groups g")
+                .join("")
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -360,7 +361,7 @@ router.post("/get-chat-groups", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: {
-            groups: await DBMethods.getChatGroups(token),
+            groups: await DBMethods.getGroupsYouAreIn(token),
             id: token._id
         }
     });

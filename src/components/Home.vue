@@ -134,6 +134,7 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
+            console.log(response);
           this.groups = response.result.groups;
           this.userId = response.result.id;
         });
