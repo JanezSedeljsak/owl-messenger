@@ -34,7 +34,8 @@
         v-bind:key="$index"
         class="item"
       >
-        <img class="list-img ui avatar image" src="./../assets/group.png" />
+        <img v-if="!group.img" class="list-img ui avatar image" src="./../assets/group.png" />
+        <img v-else class="list-img ui avatar image" v-bind:src="group.img" />
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
@@ -51,7 +52,8 @@
         v-bind:key="$index"
         class="item"
       >
-        <img class="list-img ui avatar image" src="./../assets/group.png" />
+        <img v-if="!group.img" class="list-img ui avatar image" src="./../assets/group.png" />
+        <img v-else class="list-img ui avatar image" v-bind:src="group.img" />
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>

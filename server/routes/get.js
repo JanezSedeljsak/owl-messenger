@@ -127,7 +127,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
+            qb.select(["g.img", "g.name", "gu.user_id", "g.id", "g.admin"])
                 .from("groupsusers gu")
                 .join("groups g", "g.id=gu.group_id", "right")
                 .where({ "gu.user_id": token._id })
@@ -142,7 +142,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
             console.log(groupsIN, "128");
-            qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
+            qb.select(["g.img", "g.name", "gu.user_id", "g.id", "g.admin"])
                 .from("groupsusers gu")
                 .join("groups g", "g.id=gu.group_id", "right")
                 .where({ "g.admin !=": token._id })
@@ -240,7 +240,7 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select(["g.name", "g.id"])
+            qb.select(["g.img", "g.name", "g.id"])
                 .from("groups g")
                 .where({ "g.admin": token._id })
                 .get((err, result) => {
@@ -280,11 +280,12 @@ class DBMethods {
         });
     }
 
-    static createGroup(token, name) {
+    static createGroup(token, name, _image) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
             const input = {
                 name: name,
+                img: _image,
                 created_time: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
                 admin: token._id
             };
@@ -296,11 +297,11 @@ class DBMethods {
         });
     }
 
-    static updateGroup(_id, _name) {
+    static updateGroup(_id, _name, _image) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.update("groups", { "name": _name }, { id: _id }, (err, res) => {
+            qb.update("groups", { "name": _name, "img": _image }, { id: _id }, (err, res) => {
                 resolve(err ? err : res);
             });
         });
@@ -338,7 +339,7 @@ router.post("/update-group", async (req, res, next) => {
 
     res.status(200).json({
         ok: true,
-        result: await DBMethods.updateGroup(req.body.id, req.body.name)
+        result: await DBMethods.updateGroup(req.body.id, req.body.name, req.body.img)
     });
 });
 
@@ -348,7 +349,7 @@ router.post("/create-group", async (req, res, next) => {
     console.log("chat create", token, req.body.name);
     res.status(200).json({
         ok: true,
-        result: await DBMethods.createGroup(token, req.body.name)
+        result: await DBMethods.createGroup(token, req.body.name, req.body.img)
     });
 });
 

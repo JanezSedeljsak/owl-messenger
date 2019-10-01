@@ -45,7 +45,14 @@
         >
           <div v-if="group.name.includes(chatFilter)">
             <img
+              v-if="!group.img"
               src="./../assets/userlogin.png"
+              class="w3-bar-item w3-circle w3-hide-small"
+              style="width:85px"
+            />
+            <img
+              v-else
+              v-bind:src="group.img"
               class="w3-bar-item w3-circle w3-hide-small"
               style="width:85px"
             />
@@ -134,7 +141,7 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-            console.log(response);
+          console.log(response);
           this.groups = response.result.groups;
           this.userId = response.result.id;
         });
