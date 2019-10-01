@@ -1,20 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 body {
-  background-color: #ccd0d4;
+  background-image: linear-gradient(rgb(184, 194, 193), rgb(47, 67, 80));
 }
 .container {
   height: 97vh;
   display: flex;
 }
+
 .text-effect {
   font-family: "Roboto Mono", monospace;
   text-align: center;
   text-transform: uppercase;
   margin: auto;
+  color: #dbdbdbb2 !important;
+  text-shadow: 2px 2px 4px #030303a9;
 }
+
+h1.text-effect {
+    font-size: 3vw;
+}
+
 .text-effect span {
-  color: #475058b2;
-  font-size: 140px;
+  color: #dbdbdbb2;
+  font-size: 7vw;
   text-shadow: 0 0 2px rgba(204, 208, 212, 0.308),
     0 15px 25px rgba(0, 0, 0, 0.712), 0 -2px 3px rgba(0, 0, 0, 0.507),
     0 -5px 10px rgba(255, 255, 255, 0.671), 0 5px 10px rgba(0, 0, 0, 0.486),

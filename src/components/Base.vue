@@ -1,10 +1,19 @@
 <template>
   <div style="padding: 2vw">
-    <div class="ui secondary pointing menu">
-      <a class="item">Home</a>
+    <div v-if="false" class="ui secondary pointing menu">
+      <a v-on:click="moveUrl('/')" class="item">Base</a>
+      <a v-on:click="moveUrl('/home')" class="item">Home</a>
+      <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
+      <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
+      <a v-on:click="moveUrl('/chats')" class="item">Members</a>
       <div class="right menu">
-        <a class="item">Login</a>
-        <a class="item">Register</a>
+        <a v-on:click="moveUrl('/login')" class="item">Log out</a>
+      </div>
+    </div>
+    <div v-else class="ui secondary pointing menu">
+      <div class="right menu">
+        <a v-on:click="moveUrl('/login')" class="item">Login</a>
+        <a v-on:click="moveUrl('/register')" class="item">Register</a>
       </div>
     </div>
     <h1 class="text-effect" style="color: #555">Welcome to</h1>
