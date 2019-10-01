@@ -263,6 +263,32 @@ class DBMethods {
                 });
         });
     }
+
+    static createGroup(token, name) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+            const input = {
+                name: name,
+                created_time: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+                admin: token._id
+            };
+
+            qb.returning("id").insert("groups", input, (err, res) => {
+                if (err) resolve(err);
+                else resolve(res);
+            });
+        });
+    }
+
+    static updateGroup(_id, _name) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            qb.update("groups", {"name": _name}, { id: _id }, (err, res) => {
+                resolve(err ? err : res);
+            });
+        });
+    }
 }
 
 router.post("/get-groups", async (req, res, next) => {
@@ -289,6 +315,24 @@ router.post("/delete-chat", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.deleteChatById(req.body.id)
+    });
+});
+
+router.post("/update-group", async (req, res, next) => {
+    
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.updateGroup(req.body.id, req.body.name)
+    });
+});
+
+router.post("/create-group", async (req, res, next) => {
+    console.log("create blyet");
+    let token = await parseToken(req.body.tokenString);
+    console.log("chat create", token, req.body.name);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.createGroup(token, req.body.name)
     });
 });
 

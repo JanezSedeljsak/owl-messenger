@@ -20,7 +20,7 @@
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
-          <button v-on:click="moveUrl('/your-chats')" class="ui teal button">
+          <button v-on:click="moveUrl('/chat-create')" class="ui teal button">
             <i class="icon add"></i>Ustvari novo skupino
           </button>
         </div>

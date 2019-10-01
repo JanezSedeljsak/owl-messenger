@@ -25,7 +25,7 @@
             <input type="text" v-model="form.name" placeholder="Chat Name" />
           </div>
           <div class="field">
-            <a class="ui teal tag label">Date Created:&nbsp;{{ form.created_date | dateFormat }}</a>
+            <a class="ui teal tag label">Date Created:&nbsp;{{ form.created_time | dateFormat }}</a>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <label>Actions</label>
         <div class="fields">
           <div class="ui buttons">
-            <button class="ui positive button">Update</button>
+            <button v-on:click="mainAction()" class="ui positive button">{{ MainBtn }}</button>
             <div class="or"></div>
             <button v-on:click="moveUrl('/home')" class="ui button">Back</button>
           </div>
@@ -47,7 +47,8 @@
 export default {
   data() {
     return {
-      form: { name: "" }
+      form: { name: "", created_date: new Date() },
+      MainBtn: "Update"
     };
   },
   created: function() {
@@ -55,6 +56,10 @@ export default {
   },
   methods: {
     fetchData() {
+      if (!this.$route.params.id) {
+          this.MainBtn = "Create"
+          return;
+      }
       console.log("ok");
       fetch("http://localhost:3000/api/get/get-group-by-id", {
         method: "POST",
@@ -65,6 +70,35 @@ export default {
         .then(response => {
           console.log(response);
           this.form = response.result[0];
+        });
+    },
+    mainAction() {
+        if(this.MainBtn == "Create") this.createChat();
+        else this.updateChat();
+    },
+    updateChat() {
+      fetch("http://localhost:3000/api/get/update-group", {
+        method: "POST",
+        body: JSON.stringify({ id: this.$route.params.id, name: this.form.name }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          this.fetchData();
+        });
+    },
+    createChat() {
+        window.event.preventDefault();
+        console.log("mjau");
+      fetch("http://localhost:3000/api/get/create-group", {
+        method: "POST",
+        body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth"), name: this.form.name }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
         });
     }
   }
