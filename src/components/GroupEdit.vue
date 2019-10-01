@@ -11,7 +11,7 @@
           v-on:click="moveUrl('/profile')"
           style="color: #559; font-weight: bold"
           class="item"
-        >Janez Sedeljsak</a>
+        >Profile</a>
         <a v-on:click="moveUrl('/login')" class="item">Logout</a>
       </div>
     </div>
