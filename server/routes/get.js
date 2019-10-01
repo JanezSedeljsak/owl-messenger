@@ -113,14 +113,73 @@ class DBMethods {
     }
     static getGroups(token) {
         return new Promise(async resolve => {
-            const qb = new QueryBuilder(settings, "mysql", "single");
+            let groupsIN = await this.getGroupsYouAreIn(token);
 
-            qb.select(["g.name"])
-                .from("groups g")
+            resolve({
+                in: groupsIN,
+                not_in: await this.getGroupsYouAreNotIn(token, groupsIN.map(x => x.id))
+            })
+        });
+    }
+
+    static getGroupsYouAreIn(token) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+        
+            qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
+                .from("groupsusers gu")
+                .join("groups g", "g.id=gu.group_id", "right")
+                .where({"gu.user_id": token._id})
                 .get((err, result) => {
                     qb.disconnect();
-                    resolve(result);
+                    resolve(result ? result : err);
                 });
+        });
+    }
+
+    static getGroupsYouAreNotIn(token, groupsIN) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+            console.log(groupsIN, "128");
+            qb.select(["g.name", "gu.user_id", "g.id", "g.admin"])
+                .from("groupsusers gu")
+                .join("groups g", "g.id=gu.group_id", "right")
+                .where({"g.admin !=": token._id})
+                .where_not_in("g.id", groupsIN.length ? groupsIN : ["fixInpt"])
+                .get((err, result) => {
+                    qb.disconnect();
+                    resolve(result ? result : err);
+                });
+        });
+    }
+
+    static joinGroup(token, groupId) {
+        return new Promise(async resolve => {
+            console.log(groupId);
+            const qb = new QueryBuilder(settings, "mysql", "single");
+            const input = {
+                created_time: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+                user_id: token._id,
+                group_id: groupId,
+                type: "member"
+            };
+
+            qb.returning("id").insert("groupsusers", input, (err, res) => {
+                if (err) resolve(err);
+                else resolve(res);
+            });
+        });
+    }
+
+
+    static leaveGroup(token, groupId) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+
+            qb.delete("groupsusers", { group_id: groupId, user_id: token._id }, (err, res) => {
+                if (err) resolve(err);
+                else resolve(res);
+            });
         });
     }
 
@@ -143,7 +202,7 @@ class DBMethods {
                 content: _content,
             };
 
-            qb.update("messages", data, { id: _id }, (err, res) => { 
+            qb.update("messages", data, { id: _id }, (err, res) => {
                 resolve(err ? err : res);
             });
         });
@@ -196,16 +255,19 @@ class DBMethods {
 router.post("/get-groups", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
     console.log("tle smo");
-    if(token) {
+    if (token) {
         res.status(200).json({
             ok: true,
-            result: await DBMethods.getGroups(token)
+            result: {
+                groups: await DBMethods.getGroups(token),
+                id: token._id
+            }
         });
     } else {
         res.status(200).json({
             ok: false,
             result: "naw fam"
-        }); 
+        });
     }
 
 });
@@ -231,6 +293,24 @@ router.post("/get-people", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.getPeople(token)
+    });
+});
+
+router.post("/join-group", async (req, res, next) => {
+    console.log("people call");
+    let token = await parseToken(req.body.tokenString);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.joinGroup(token, req.body.id)
+    });
+});
+
+router.post("/leave-group", async (req, res, next) => {
+    console.log("people call");
+    let token = await parseToken(req.body.tokenString);
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.leaveGroup(token, req.body.id)
     });
 });
 

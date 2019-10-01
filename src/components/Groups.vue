@@ -29,7 +29,7 @@
     <br />
     <div style="clear:both" class="ui middle aligned divided list">
       <div
-        v-for="(group, $index) in groups.filter(x => x.name.includes(filterValue))"
+        v-for="(group, $index) in groupsNot.filter(x => x.name.includes(filterValue))"
         v-bind:key="$index"
         class="item"
       >
@@ -37,7 +37,22 @@
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
         </div>
-        <button style="float: right" class="ui primary button">Join</button>
+        <button style="float: right" class="ui primary button" v-on:click="joinGroup(group.id)">Join</button>
+      </div>
+      <div
+        v-for="(group, $index) in groupsIn.filter(x => x.name.includes(filterValue))"
+        v-bind:key="$index"
+        class="item"
+      >
+        <img class="list-img ui avatar image" src="./../assets/group.png" />
+        <div class="content">
+          <a class="header">{{ group.name | capFirst }}</a>
+        </div>
+        <button
+          style="float: right"
+          class="ui primary button"
+          v-on:click="leaveGroup(group.id)"
+        >Leave</button>
       </div>
     </div>
   </div>
@@ -47,8 +62,10 @@
 export default {
   data() {
     return {
-      groups: [],
-      filterValue: ""
+      groupsIn: [],
+      groupsNot: [],
+      filterValue: "",
+      userId: ""
     };
   },
   created: function() {
@@ -63,8 +80,42 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-          this.groups = response.result;
           console.log(response);
+          this.groupsIn = response.result.groups.in;
+          this.groupsNot = response.result.groups.not_in;
+          this.userId = response.result.id;
+        });
+    },
+    leaveGroup(groupId) {
+      console.log(groupId, "71");
+      fetch("http://localhost:3000/api/get/leave-group", {
+        method: "POST",
+        body: JSON.stringify({
+          tokenString: sessionStorage.getItem("_tAuth"),
+          id: groupId
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          this.fetchData();
+        });
+    },
+    joinGroup(groupId) {
+      console.log(groupId, "71");
+      fetch("http://localhost:3000/api/get/join-group", {
+        method: "POST",
+        body: JSON.stringify({
+          tokenString: sessionStorage.getItem("_tAuth"),
+          id: groupId
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          this.fetchData();
         });
     },
     moveUrl: link =>

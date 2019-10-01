@@ -37,7 +37,6 @@
         <div class="content">
           <a class="header">{{ p.name + " " + p.surname | capFirst }}</a>
         </div>
-        <button style="float: right" class="ui primary button">Add</button>
       </div>
     </div>
   </div>
