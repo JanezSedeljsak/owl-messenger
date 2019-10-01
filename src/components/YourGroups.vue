@@ -1,13 +1,22 @@
 <template>
   <div style="padding: 2vw">
+    <div class="ui secondary pointing menu">
+      <a v-on:click="moveUrl('/home')" class="item">Home</a>
+      <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
+      <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
+      <a v-on:click="moveUrl('/chats')" class="item">Members</a>
+      <div class="right menu">
+        <a v-on:click="moveUrl('/profile')" style="color: #559; font-weight: bold" class="item">Janez Sedeljsak</a>
+        <a v-on:click="moveUrl('/login')" class="item">Logout</a>
+      </div>
+    </div>
     <h1 class="ui dividing header">Your Chats</h1>
     <div clss="row">
       <div style="float: right" class="field">
         <div style="float: left" class="fields">
-          <button v-on:click="moveUrl('/your-chats')" class="ui teal button"><i class="icon add"></i>Ustvari novo skupino</button>
-        </div>
-        <div style="float: left" class="fields">
-          <button v-on:click="moveUrl('/home')" class="ui red button">Back</button>
+          <button v-on:click="moveUrl('/your-chats')" class="ui teal button">
+            <i class="icon add"></i>Ustvari novo skupino
+          </button>
         </div>
       </div>
       <div style="float: left" class="ui category search">
@@ -21,7 +30,11 @@
     <br />
     <br />
     <div style="clear:both" class="ui middle aligned divided list">
-      <div v-for="(group, $index) in groups.filter(x => x.name.includes(filterValue))" v-bind:key="$index" class="item">
+      <div
+        v-for="(group, $index) in groups.filter(x => x.name.includes(filterValue))"
+        v-bind:key="$index"
+        class="item"
+      >
         <img class="list-img ui avatar image" src="./../assets/group.png" />
         <div class="content">
           <a class="header">{{ group.name | capFirst }}</a>
@@ -37,8 +50,8 @@
 export default {
   data() {
     return {
-        groups: [],
-        filterValue: ""
+      groups: [],
+      filterValue: ""
     };
   },
   created: function() {

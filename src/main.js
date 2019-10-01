@@ -28,7 +28,10 @@ router.beforeEach((to, from, next) => {
     if (['/login', '/register'].includes(to.path)) {
         if (sessionStorage.getItem("_tAuth")) sessionStorage.removeItem('_tAuth');
         next();
-    } else if (sessionStorage.getItem("_tAuth")) {
+    } else if(to.path == '/'){
+        next();
+        //base presentation text
+    }else if (sessionStorage.getItem("_tAuth")) {
         fetch("http://localhost:3000/api/auth/route-guard", {
             method: "POST",
             body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),

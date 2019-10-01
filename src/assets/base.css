@@ -1,0 +1,82 @@
+body {
+    background-color: #ccd0d4;
+  }
+  .container {
+    height: 97vh;
+    display: flex;
+  }
+  .text-effect {
+    font-family: "Nunito", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    margin: auto;
+  }
+  .text-effect span {
+    color: #475058b2;
+    font-size: 140px;
+    text-shadow: 0 0 2px rgba(204, 208, 212, 0.308), 0 15px 25px rgba(0, 0, 0, 0.712),
+      0 -2px 3px rgba(0, 0, 0, 0.507), 0 -5px 10px rgba(255, 255, 255, 0.671),
+      0 5px 10px rgba(0, 0, 0, 0.486), 0 3px 4px rgba(255, 255, 255, 0.664),
+      0 0 20px rgba(255, 255, 255, 0.658);
+    display: inline-block;
+    animation: animate 0.85s ease-in-out infinite alternate;
+  }
+  .text-effect span:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .text-effect span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .text-effect span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .text-effect span:nth-child(4) {
+    animation-delay: 0.45s;
+  }
+  .text-effect span:nth-child(5) {
+    animation-delay: 0.6s;
+  }
+  .text-effect span:nth-child(6) {
+    animation-delay: 0.75s;
+  }
+  .text-effect span:nth-child(7) {
+    animation-delay: 0.9s;
+  }
+  .text-effect span:nth-child(8) {
+    animation-delay: 1.05s;
+  }
+  .text-effect span:nth-child(9) {
+    animation-delay: 1.2s;
+  }
+  .text-effect span:nth-child(10) {
+    animation-delay: 1.35s;
+  }
+  @keyframes animate {
+    to {
+      text-shadow: 0 0 2px rgba(204, 208, 212, 0.2), 0 0 3px rgba(0, 0, 0, 0.02),
+        0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(255, 255, 255, 0),
+        0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(255, 255, 255, 0),
+        0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
+  @media only screen and (max-width: 990px) {
+    .text-effect span {
+      font-size: 115px;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .text-effect span {
+      font-size: 75px;
+    }
+  }
+  @media only screen and (max-width: 479px) {
+    .text-effect span {
+      font-size: 55px;
+    }
+  }
+  @media only screen and (max-width: 359px) {
+    .text-effect span {
+      font-size: 40px;
+    }
+  }
+  

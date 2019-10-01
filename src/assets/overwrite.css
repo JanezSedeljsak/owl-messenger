@@ -61,6 +61,14 @@ form.loginView {
   width: 40%;
 }
 
+a.item:hover:not(.not) {
+    border-bottom: 2px solid black !important;
+}
+
+a.not:hover {
+    cursor: default !important;
+}
+
 i.rmv-btn:hover {
     cursor: pointer;
 }

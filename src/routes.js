@@ -6,6 +6,7 @@ import Groups from "./components/Groups.vue";
 import People from "./components/People.vue";
 import GroupEdit from "./components/GroupEdit.vue";
 import YourGroups from "./components/YourGroups.vue";
+import Base from "./components/Base.vue";
 
 export const routes = [
     { path: "/home", component: Home },
@@ -16,5 +17,6 @@ export const routes = [
     { path: "/login", component: Login },
     { path: "/group/:id", component: GroupEdit },
     { path: "/your-chats", component: YourGroups },
+    { path: "/", component: Base },
     { path: '*', redirect: '/login' }
 ];
