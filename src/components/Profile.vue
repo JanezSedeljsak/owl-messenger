@@ -40,6 +40,17 @@
         </div>
       </div>
       <div class="field">
+        <label>Profile image</label>
+        <div class="fields">
+          <div class="twelve wide field ui right labeled left icon input">
+            <input v-model="form.profile_img" type="text" placeholder="Upload Image..." />
+            <a v-on:click="uploadImage()" class="ui blue tag label">Add Image</a>
+          </div>
+        </div>
+        <label>Image Preview</label>
+        <img v-bind:src="form.profile_img" style="width: 20vw; height: 20vw; border: 2px solid black"/>
+      </div>
+            <div class="field">
         <label>Actions</label>
         <div class="fields">
           <div class="ui buttons">
@@ -57,7 +68,7 @@
 export default {
   data() {
     return {
-      form: {name: "", surname: "", email: ""}
+      form: { name: "", surname: "", email: "", profile_img: "" }
     };
   },
   created: function() {
@@ -74,6 +85,21 @@ export default {
         .then(response => {
           this.form = response.result[0];
         });
+    },
+    uploadImage() {
+        var form = this.form;
+        let fileInput = document.createElement('input'); 
+        fileInput.setAttribute("type", "file");
+        fileInput.setAttribute("accept", "image/*");  
+        fileInput.click();
+        
+        fileInput.onchange = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                form.profile_img = reader.result;
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
     },
     updateProfile() {
       fetch("http://localhost:3000/api/get/update-profile-data", {

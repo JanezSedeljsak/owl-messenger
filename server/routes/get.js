@@ -438,10 +438,10 @@ router.post("/get-messages", async (req, res, next) => {
 
 router.post("/update-profile-data", async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);
-    let { name, surname } = req.body.form;
+    let { name, surname, profile_img } = req.body.form;
     res.status(200).json({
         ok: true,
-        result: await DBMethods.updateProfileData({ name, surname }, token)
+        result: await DBMethods.updateProfileData({ name, surname, profile_img }, token)
     });
 });
 
