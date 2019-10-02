@@ -133,7 +133,8 @@ export default {
       })
         .then(res => res.json())
         .then(response => {
-          console.log(response);
+          this.form = { name: "", created_date: new Date(), img: "" }
+          this.$swal("New chat group was creaed!");
         });
     }
   }

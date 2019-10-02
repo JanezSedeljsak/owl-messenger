@@ -109,7 +109,7 @@ export default {
               console.log(response.result);
             } else {
               sessionStorage.setItem("_tAuth", response.result.toString());
-              window.location = "/home";
+              window.location = "/";
             }
           });
       }
