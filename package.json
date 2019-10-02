@@ -10,7 +10,7 @@
     "start-server": "nodemon server/app.js",
     "build": "node build/build.js",
     "webp": "webpack --config prod.config.js",
-    "heroku-postbuild": "" 
+    "heroku-postbuild": "webpack -p"
   },
   "dependencies": {
     "axios": "^0.19.0",

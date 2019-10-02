@@ -51,7 +51,7 @@ class DBMethods {
         });
     }
 
-    static getPorfile(token) {
+    static getMessages(token, groupId) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
@@ -75,23 +75,12 @@ class DBMethods {
         });
     }
 
-    static getMessages(token, groupId) {
+    static getAllPeople() {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
-            qb.select([
-                "m.id",
-                "m.content",
-                "u.name",
-                "u.surname",
-                "m.msg_time",
-                "m.user_id"
-            ])
-                .from("groups g")
-                .join("messages m", "m.group_id=g.id", "left")
-                .join("users u", "m.user_id=u.id", "left")
-                .where({ "g.id": groupId })
-                .order_by("m.msg_time")
+            qb.select(["name", "surname", "id"])
+                .from("users")
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result);
@@ -348,6 +337,12 @@ router.post("/delete-chat", async (req, res, next) => {
     });
 });
 
+router.get("/test", async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.getAllPeople()
+    });
+});
 
 router.post("/remove-user", async (req, res, next) => {
     res.status(200).json({
