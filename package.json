@@ -9,7 +9,8 @@
     "start": "npm run dev",
     "start-server": "nodemon server/app.js",
     "build": "node build/build.js",
-    "heroku-postbuild": "webpack -p"
+    "webp": "webpack --config prod.config.js",
+    "heroku-postbuild": "" 
   },
   "dependencies": {
     "axios": "^0.19.0",
