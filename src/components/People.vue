@@ -40,6 +40,11 @@
           <a class="ui h3 header">{{ p.name + " " + p.surname | capFirst }}</a>
           <span style="font-weight: bold">{{ p.type }}</span>
         </div>
+        <button
+          style="float: right"
+          v-on:click="kickUser(p.user)"
+          class="ui primary button"
+        >Kick from group</button>
       </div>
     </div>
   </div>
@@ -56,7 +61,6 @@ export default {
   },
   created: function() {
     this.fetchData();
-    console.log();
   },
   methods: {
     fetchData() {
@@ -68,7 +72,7 @@ export default {
         })
           .then(res => res.json())
           .then(response => {
-              console.log(response);
+            console.log(response);
             this.people = response.result;
           });
       } else {
@@ -84,6 +88,22 @@ export default {
             this.people = response.result;
           });
       }
+    },
+    kickUser(user) {
+      console.log("kick user");
+      fetch("http://localhost:3000/api/get/remove-user", {
+        method: "POST",
+        body: JSON.stringify({
+          user: user,
+          group: this.$route.params.id
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          console.log(response);
+          this.fetchData();
+        });
     },
     search() {
       alert("mjau");

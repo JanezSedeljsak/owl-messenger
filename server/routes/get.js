@@ -195,6 +195,19 @@ class DBMethods {
         });
     }
 
+
+    static removeMember(group, user) {
+        return new Promise(async resolve => {
+            const qb = new QueryBuilder(settings, "mysql", "single");
+            console.log(user, group, "202");
+
+            qb.delete("groupsusers", { user_id: user, group_id: group }, (err, res) => {
+                if (err) resolve(err);
+                else resolve(res);
+            });
+        });
+    }
+
     static updateMessage(_id, _content) {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
@@ -269,7 +282,7 @@ class DBMethods {
             const qb = new QueryBuilder(settings, "mysql", "single");
 
             console.log(chatId, "271");
-            qb.select(["*"])
+            qb.select(["*", "u.id as user"])
                 .from("users u")
                 .join("groupsusers g", "u.id=g.user_id", "right")
                 .where({ "g.group_id": chatId })
@@ -332,6 +345,14 @@ router.post("/delete-chat", async (req, res, next) => {
     res.status(200).json({
         ok: true,
         result: await DBMethods.deleteChatById(req.body.id)
+    });
+});
+
+
+router.post("/remove-user", async (req, res, next) => {
+    res.status(200).json({
+        ok: true,
+        result: await DBMethods.removeMember(req.body.group, req.body.user)
     });
 });
 
