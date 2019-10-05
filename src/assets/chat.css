@@ -21,6 +21,7 @@ h1.chat-title {
   display: block;
   font-family: "Roboto", sans-serif;
   color: #3681ac;
+  display: none;
 }
 
 body .wrapper h1 {
@@ -40,6 +41,11 @@ body .wrapper .speechbubble {
   line-height: 1.75;
   padding: 40px;
   cursor: default;
+}
+
+body .wrapper .speechbubble span.user-i {
+    font-size: .8em !important;
+    margin-bottom: 10px;
 }
 
 body .wrapper .speechbubble.recived {

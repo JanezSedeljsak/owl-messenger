@@ -1,12 +1,16 @@
-nav {
+nav.neki {
   background-image: url("navback.png") !important;
   background-size: 100% 100%;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+nav {
+    background: #eee !important;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 
 *:not(i) {
-    font-family: 'Lato', sans-serif !important;
+  font-family: "Lato", sans-serif !important;
 }
 
 body {
@@ -41,21 +45,28 @@ form {
 .container-cstm {
   position: absolute;
   left: 25vw;
-  top: 0;
-  height: 100vh;
+  top: 7vh;
+  height: 93vh;
   width: 75vw;
-  background-image: linear-gradient(#0f2027, #2c5364) !important;
+  background-color: #eee !important;
 }
 
 .footer-send {
+  border: 2px solid rgb(0, 0, 0);
   position: fixed !important;
   left: 25vw !important;
   bottom: 0 !important;
   width: 75vw;
+  padding: 0;
+  margin: 0;
 }
 
+#chatSpace {
+    background-image: linear-gradient(#999, #eee);
+}
+
+
 .msg-input {
-  background: #eee !important;
   border-top: rgba(255, 255, 255, 0.452) 1px solid !important;
   outline: none !important;
 }
@@ -67,16 +78,20 @@ form.loginView {
   width: 40%;
 }
 
+.w3-ul {
+  background: #5c9b9b96 !important;
+}
+
 a.item:hover:not(.not) {
-    border-bottom: 2px solid black !important;
+  border-bottom: 2px solid black !important;
 }
 
 a.not:hover {
-    cursor: default !important;
+  cursor: default !important;
 }
 
 i.rmv-btn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tooltip {

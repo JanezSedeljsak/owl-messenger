@@ -1,33 +1,26 @@
 <template>
   <div>
+    <div class="ui secondary pointing menu">
+      <img src="./../assets/wide-logo.png" style="width: 7em; height: 3em" />
+      <a v-on:click="moveUrl('/')" class="item">Base</a>
+      <a v-on:click="moveUrl('/home')" class="item">Home</a>
+      <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
+      <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
+      <a v-on:click="moveUrl('/people')" class="item">Members</a>
+      <div class="right menu">
+        <a
+          v-on:click="moveUrl('/profile')"
+          style="color: #559; font-weight: bold"
+          class="item"
+        >Profile</a>
+        <a v-on:click="moveUrl('/login')" class="item">Logout</a>
+      </div>
+    </div>
     <nav
       class="w3-sidebar w3-collapse w3-top w3-large w3-padding"
-      style="z-index:3;width:25vw;font-weight:bold;"
+      style="height: 93vh; top: 7vh;width:25vw;font-weight:bold;"
       id="mySidebar"
     >
-      <br />
-      <div class="row" style="margin-bottom: 10px; width: 100%">
-        <img src="./../assets/wide-logo.png" style="width: 90%" />
-      </div>
-      <div class="row" style="text-align:center; margin-bottom: 10px; width: 100%">
-        <button
-          v-on:click="moveUrl('/chats')"
-          v-tooltip="'Search Chats'"
-          class="rnd-btn ui green button"
-        >
-          <i class="users icon"></i>
-        </button>
-        <button
-          v-on:click="moveUrl('/profile')"
-          v-tooltip="'Edit profile'"
-          class="rnd-btn ui olive button"
-        >
-          <i class="id card icon"></i>
-        </button>
-        <button v-on:click="logOut()" v-tooltip="'Log out'" class="rnd-btn ui blue button">
-          <i class="arrow alternate circle left icon"></i>
-        </button>
-      </div>
       <div style="margin-bottom: 1vw; width: 100%" class="ui search">
         <div style="width: 100%" class="ui icon input">
           <input v-model="chatFilter" class="prompt" type="text" placeholder="Search chats..." />
@@ -76,7 +69,50 @@
           v-for="(msg, $index) in chat"
           v-bind:key="$index"
         >
-          <p v-if="msg.content">
+          <div v-if="msg.content && msg.content.includes('owl-!')">
+            <div>
+              <div v-if="msg.content.includes('video')">
+                <p>VIDEO:</p>
+                <iframe
+                  width="560"
+                  height="315"
+                  v-bind:src="msg.content.split('|')[1].replace('watch?v=', 'embed/')"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div v-else-if="msg.content.includes('image')">
+                <p>IMG:</p>
+                <img v-bind:src="msg.content.split('|')[1]" alt="/" width="560" />
+              </div>
+              <div v-else-if="msg.content.includes('gif')">
+                <p>GIF:</p>
+                <img v-bind:src="msg.content.split('|')[1]" alt="/" width="560" />
+              </div>
+            </div>
+            <br>
+            <div class="username user-i">
+              {{ msg.name + " " + msg.surname | capFirst }}
+              <br />
+              {{ msg.msg_time | dateFromNow }}
+              <span v-if="msg.user_id == userId">
+                |&nbsp;
+                <i
+                  v-tooltip="'delete chat'"
+                  class="rmv-btn id red remove icon"
+                  v-on:click="deleteChat(msg.id)"
+                ></i>
+                |&nbsp;
+                <i
+                  v-tooltip="'edit chat'"
+                  class="rmv-btn id orange edit icon"
+                  v-on:click="editChat(msg.content, msg.id)"
+                ></i>
+              </span>
+            </div>
+          </div>
+          <p v-else-if="msg.content && !msg.content.includes('owl-!')">
             {{ msg.content }}
             <span class="username">
               {{ msg.name + " " + msg.surname | capFirst }}
@@ -102,7 +138,11 @@
       </div>
       <div style="z-index: 3" class="footer-send ui right labeled input">
         <input type="text" v-model="msgInput" class="msg-input" placeholder="Type message.." />
-        <div v-on:click="sendChat()" style="width: 10vw" class="ui teal button">
+        <div
+          v-on:click="sendChat()"
+          style="margin-right:0; width: 10vw"
+          class="ui secondary button"
+        >
           <i class="paper plane icon"></i>
           {{ ConfirmButton }}
         </div>
