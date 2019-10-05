@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui secondary pointing menu">
-      <img src="./../assets/wide-logo.png" style="width: 7em; height: 3em" />
+      <img src="./../assets/wide-logo.png" style="width: 15vh; height: 6vh" />
       <a v-on:click="moveUrl('/')" class="item">Base</a>
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
       <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
@@ -32,26 +32,24 @@
         <li
           v-on:click="openMsg(group.id, group.name)"
           class="person-li w3-bar"
-          v-for="(group, $index) in groups"
+          v-for="(group, $index) in groups.filter(group => group.name.includes(chatFilter))"
           v-bind:key="$index"
           v-tooltip="`Open \'${group.name.toUpperCase() || 'Random Chat' }\' chat`"
         >
-          <div v-if="group.name.includes(chatFilter)">
-            <img
-              v-if="!group.img"
-              src="./../assets/userlogin.png"
-              class="w3-bar-item w3-circle w3-hide-small"
-              style="width:85px"
-            />
-            <img
-              v-else
-              v-bind:src="group.img"
-              class="w3-bar-item w3-circle w3-hide-small"
-              style="width:85px"
-            />
-            <div class="w3-bar-item">
-              <span class="person-spn">{{ group.name | capFirst }}</span>
-            </div>
+          <img
+            v-if="!group.img"
+            src="./../assets/userlogin.png"
+            class="w3-bar-item w3-circle w3-hide-small"
+            style="width:85px"
+          />
+          <img
+            v-else
+            v-bind:src="group.img"
+            class="w3-bar-item w3-circle w3-hide-small"
+            style="width:85px"
+          />
+          <div class="w3-bar-item">
+            <span class="person-spn">{{ group.name | capFirst }}</span>
           </div>
         </li>
       </ul>
@@ -72,11 +70,11 @@
           <div v-if="msg.content && msg.content.includes('owl-!')">
             <div>
               <div v-if="msg.content.includes('video')">
-                <p>VIDEO:</p>
+                <p>{{ msg.content.split('|')[0] }}</p>
                 <iframe
                   width="560"
                   height="315"
-                  v-bind:src="msg.content.split('|')[1].replace('watch?v=', 'embed/')"
+                  v-bind:src="msg.content.split('|')[2].replace('watch?v=', 'embed/')"
                   frameborder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
@@ -84,14 +82,14 @@
               </div>
               <div v-else-if="msg.content.includes('image')">
                 <p>IMG:</p>
-                <img v-bind:src="msg.content.split('|')[1]" alt="/" width="560" />
+                <img v-bind:src="msg.content.split('|')[2]" alt="/" width="560" />
               </div>
               <div v-else-if="msg.content.includes('gif')">
                 <p>GIF:</p>
-                <img v-bind:src="msg.content.split('|')[1]" alt="/" width="560" />
+                <img v-bind:src="msg.content.split('|')[2]" alt="/" width="560" />
               </div>
             </div>
-            <br>
+            <br />
             <div class="username user-i">
               {{ msg.name + " " + msg.surname | capFirst }}
               <br />
@@ -138,11 +136,7 @@
       </div>
       <div style="z-index: 3" class="footer-send ui right labeled input">
         <input type="text" v-model="msgInput" class="msg-input" placeholder="Type message.." />
-        <div
-          v-on:click="sendChat()"
-          style="margin-right:0; width: 10vw"
-          class="ui secondary button"
-        >
+        <div v-on:click="sendChat()" style="margin-right:0; width: 10vw" class="ui primary button">
           <i class="paper plane icon"></i>
           {{ ConfirmButton }}
         </div>
@@ -280,3 +274,7 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+@import "./../assets/chat.css";
+</style>

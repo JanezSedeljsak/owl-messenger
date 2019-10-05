@@ -21,7 +21,6 @@ h1.chat-title {
   display: block;
   font-family: "Roboto", sans-serif;
   color: #3681ac;
-  display: none;
 }
 
 body .wrapper h1 {
@@ -105,4 +104,11 @@ body .wrapper .speechbubble .username {
 }
 body .wrapper .speechbubble .username:before {
   content: "- ";
+}
+
+body {
+    background-image: url("navback.png") !important;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: right 7vh !important;  
 }
