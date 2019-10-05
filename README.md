@@ -13,7 +13,7 @@ Follows some principles from Telegram and such apps...
 > 2. Write: ```npm install```</br>
 > 3. Create a database with the telegram_db.sql script</br>
 > 4. Alter the file server/routes/connect.js to connect your database</br>
-> 5. Run 2 different CMDs to run ```npm run dev``` && npm ```run start-server```
+> 5. Run 2 different CMDs to run: ```npm run dev``` && npm ```run start-server```
 
 ## Prerequisites
 
