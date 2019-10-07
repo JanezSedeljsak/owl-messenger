@@ -134,11 +134,10 @@ export default {
       }
     }
   },
+  created: function() {
+      window.open("https://www.google.com/accounts/Logout");
+  },
   mounted() {
-    /*const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function() {
-        console.log("user signed out");
-    });*/
     gapi.signin2.render("google-signin-btn", {
       // this is the button "id"
       onsuccess: this.onSignIn // note, no "()" here
