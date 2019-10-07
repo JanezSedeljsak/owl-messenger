@@ -131,11 +131,12 @@ class DBMethods {
         return new Promise(async resolve => {
             const qb = new QueryBuilder(settings, "mysql", "single");
             console.log(groupsIN, "128");
-            qb.select(["g.img", "g.name", "gu.user_id", "g.id", "g.admin"])
+            qb.distinct().select(["g.img", "g.name", "gu.user_id", "g.id", "g.admin"])
                 .from("groupsusers gu")
                 .join("groups g", "g.id=gu.group_id", "right")
                 .where({ "g.admin !=": token._id })
                 .where_not_in("g.id", groupsIN.length ? groupsIN : ["fixInpt"])
+                .group_by('g.id')
                 .get((err, result) => {
                     qb.disconnect();
                     resolve(result ? result : err);
