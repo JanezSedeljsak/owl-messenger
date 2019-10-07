@@ -28,14 +28,7 @@
       >
         <i class="facebook f icon"></i>
       </button>
-      <button
-        v-tooltip="'Google login'"
-        class="rnd-btn ui red button"
-        v-on:click="googleAuth()"
-        type="submit"
-      >
-        <i class="google icon"></i>
-      </button>
+      <button id="google-signin-btn" type="button"></button>
       <button
         v-tooltip="'Go to register'"
         class="rnd-btn ui secondary button"
@@ -63,6 +56,8 @@ export default {
       window.location = "/register";
     },
     fbAuth() {
+      const auth2 = gapi.auth2.getAuthInstance();
+      console.log(auth2);
       /*window.fbAsyncInit = function() {
         FB.init({
           appId: "2425422854217017",
@@ -80,19 +75,39 @@ export default {
         if (d.getElementById(id)) {
           return;
         }
-        js = d.createElement(s);
+        js = d.createElement(
         js.id = id;
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");*/
       window.event.preventDefault();
-      window.location.href =
-        "https://www.facebook.com/pages/category/Public-Figure/login-form-110673935611628/";
     },
     googleAuth() {
-      window.event.preventDefault();
-      window.location.href =
-        "https://accounts.google.com/ServiceLogin/signinchooser?elo=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
+      this.onSignIn();
+    },
+    onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      let form = {
+        google_id: profile["Eea"],
+        email: profile["U3"],
+        name: profile["ofa"],
+        surname: profile["wea"],
+      };
+      console.log(form, profile);
+      fetch("http://localhost:3000/api/auth/google-auth", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(response => {
+          if (!response.ok) {
+            console.log(response.result);
+          } else {
+            sessionStorage.setItem("_tAuth", response.result.toString());
+            window.location = "/";
+          }
+        });
     },
     login() {
       window.event.preventDefault();
@@ -114,6 +129,16 @@ export default {
           });
       }
     }
+  },
+  mounted() {
+    /*const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log("user signed out");
+    });*/
+    gapi.signin2.render("google-signin-btn", {
+      // this is the button "id"
+      onsuccess: this.onSignIn // note, no "()" here
+    });
   }
 };
 </script>
