@@ -37,8 +37,10 @@ export default {
   },
   created: function() {},
   methods: {
-    moveUrl: link =>
-      window.location.pathname != link ? (window.location = link) : null
+    moveUrl: link => {
+      window.event.preventDefault();
+      window.location.pathname != link ? (window.location = link) : null;
+    }
   }
 };
 </script>

@@ -87,6 +87,10 @@ export default {
     },
     onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
+      
+      //if user was not found end proccessssss
+      if(!profile) return;
+
       let form = {
         google_id: profile["Eea"],
         email: profile["U3"],

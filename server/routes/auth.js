@@ -96,6 +96,26 @@ router.post('/route-guard', async (req, res, next) => {
     });
 });
 
+router.post("/google-auth", async (req, res, next) => {
+    const qb = new QueryBuilder(settings, 'mysql', 'single');
+    const data = {
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
+        id: req.body.google_id,
+        password: "EMPTY",
+        date_created: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+    };
+
+    qb.returning('id').insert('users', data, (err, result) => { /* if already in it inserts else it doesnt */ });
+
+    res.status(200).json({
+        ok: true,
+        result: await generateToken({
+            _id: data.id
+        })
+    });
+});
 
 router.post('/get-username', async (req, res, next) => {
     let token = await parseToken(req.body.tokenString);

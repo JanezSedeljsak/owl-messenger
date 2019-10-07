@@ -132,8 +132,9 @@ export default {
           this.fetchData();
         });
     },
-    moveUrl: link =>
-      window.location.pathname != link ? (window.location = link) : null,
+    moveUrl: link => {
+      window.location.pathname != link ? (window.location = link) : null;
+    },
     search() {
       alert("mjau");
     },

@@ -28,10 +28,10 @@ router.beforeEach((to, from, next) => {
     if (['/login', '/register'].includes(to.path)) {
         if (sessionStorage.getItem("_tAuth")) sessionStorage.removeItem('_tAuth');
         next();
-    } else if(to.path == '/'){
+    } else if (to.path == '/') {
         next();
         //base presentation text
-    }else if (sessionStorage.getItem("_tAuth")) {
+    } else if (sessionStorage.getItem("_tAuth")) {
         fetch("http://localhost:3000/api/auth/route-guard", {
             method: "POST",
             body: JSON.stringify({ tokenString: sessionStorage.getItem("_tAuth") }),
@@ -58,11 +58,11 @@ Vue.mixin({
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
-            });    
+            });
         },
         moveUrl: link => {
             window.event.preventDefault();
-            window.location.pathname != link ? (window.location = link) : null
+            window.location.pathname != link ? (window.location = link) : null;
         }
     }
 });
@@ -70,6 +70,6 @@ Vue.mixin({
 Vue.filter('capitalize', value => value.toUpperCase());
 Vue.filter('dateFormat', date => moment(date).format('DD. MM. YYYY'));
 Vue.filter('dateFromNow', date => moment(date).fromNow());
-Vue.filter('capFirst', item => item.split(" ").map(x => 
-    x.substr(0,1).toUpperCase() + x.substr(1,x.length-1).toLowerCase()
+Vue.filter('capFirst', item => item.split(" ").map(x =>
+    x.substr(0, 1).toUpperCase() + x.substr(1, x.length - 1).toLowerCase()
 ).join(" "));
