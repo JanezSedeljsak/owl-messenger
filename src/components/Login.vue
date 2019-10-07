@@ -135,7 +135,7 @@ export default {
     }
   },
   created: function() {
-      window.open("https://www.google.com/accounts/Logout");
+      window.open("https://www.google.com/accounts/Logout", "_blank");
   },
   mounted() {
     gapi.signin2.render("google-signin-btn", {

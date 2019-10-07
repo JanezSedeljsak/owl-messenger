@@ -81,11 +81,11 @@
                 ></iframe>
               </div>
               <div v-else-if="msg.content.includes('image')">
-                <p>IMG:</p>
+                <p>{{ msg.content.split('|')[0] }}</p>
                 <img v-bind:src="msg.content.split('|')[2]" alt="/" width="560" />
               </div>
               <div v-else-if="msg.content.includes('gif')">
-                <p>GIF:</p>
+                <p>{{ msg.content.split('|')[0] }}</p>
                 <img v-bind:src="msg.content.split('|')[2]" alt="/" width="560" />
               </div>
             </div>
