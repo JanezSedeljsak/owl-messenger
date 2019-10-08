@@ -34,6 +34,7 @@ Follows some principles from Telegram and such apps...
 > 5. Basic chat functionalities</br>
   > ```Sending, deleting, editing chats```</br>
   > ```Sending videos, gifs, images ["|owl-!video|link or |owl-!image|link"]```</br>
+  > ```Custom gif picker (just pick a gif and send)```</br>
   
 
 ## Architecture
