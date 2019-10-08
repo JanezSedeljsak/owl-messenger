@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!gifPicker">
+    <div>
       <div class="ui secondary pointing menu">
         <img src="./../assets/wide-logo.png" style="width: 15vh; height: 6vh" />
         <a v-on:click="moveUrl('/')" class="item">Base</a>
@@ -55,7 +55,7 @@
           </li>
         </ul>
       </nav>
-      <div v-if="chat.length" class="container-cstm">
+      <div v-if="chat.length && !gifPicker" class="container-cstm">
         <div
           id="chatSpace"
           class="wrapper t-chat"
@@ -160,7 +160,7 @@
         <h1 style="font-size: 3vw !important" class="chat-title text-center">>>Pick to chat</h1>
       </div>
     </div>
-    <div v-else style="margin-left: 5%; width: 90%" class="ui active modal">
+    <div v-if="gifPicker" style="margin-top: 3vw; margin-left: 5%; width: 90%" class="ui active modal">
       <div class="header">
         Gif Picker
         <span v-on:click="closePicker()" style="float: right">
