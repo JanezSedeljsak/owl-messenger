@@ -26,6 +26,17 @@ Follows some principles from Telegram and such apps...
 * [Semantic ui](https://semantic-ui.com)
 * some extra js libraries....
 
+## Features
+> 1. App integrated && Google auth</br>
+> 2. Creating && Editing your own chat groups</br>
+> 3. Joining other peoples chats</br>
+> 4. Members preview</br>
+> 5. Basic chat functionalities</br>
+  > ```Sending, deleting, editing chats```</br>
+  > ```Sending videos, gifs, images ["|owl-!video|link or |owl-!image|link"]```</br>
+  > ```Custom gif picker (just pick a gif and send)```</br>
+  
+
 ## Architecture
 
 ![alt text](https://d1xple9gxb4tux.cloudfront.net/assets/images/article_images/bd4442aed16acafc54c7943d34abff0edadfa74c.png?1553504574)
