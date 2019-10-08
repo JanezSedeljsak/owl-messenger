@@ -107,7 +107,11 @@ router.post("/google-auth", async (req, res, next) => {
         date_created: moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
     };
 
-    qb.returning('id').insert('users', data, (err, result) => { /* if already in it inserts else it doesnt */ });
+    console.log("110", data);
+
+    qb.returning('id').insert('users', data, (err, result) => {
+        console.log("113", err ? err : result);
+    });
 
     res.status(200).json({
         ok: true,

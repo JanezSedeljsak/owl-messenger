@@ -92,7 +92,7 @@ export default {
       if(!profile) return;
 
       let form = {
-        google_id: profile["Eea"],
+        google_id: profile["Paa"].substr(profile["Paa"].length-36),
         email: profile["U3"],
         name: profile["ofa"],
         surname: profile["wea"],
@@ -108,6 +108,7 @@ export default {
           if (!response.ok) {
             console.log(response.result);
           } else {
+            console.log(response.result);
             sessionStorage.setItem("_tAuth", response.result.toString());
             window.location = "/";
           }

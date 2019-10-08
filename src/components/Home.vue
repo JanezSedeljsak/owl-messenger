@@ -135,7 +135,13 @@
         </div>
       </div>
       <div style="z-index: 3" class="footer-send ui right labeled input">
-        <input type="text" v-model="msgInput" class="msg-input" placeholder="Type message.." />
+        <input 
+          v-on:keydown="keyDownSend()"
+          type="text" 
+          v-model="msgInput" 
+          class="msg-input" 
+          placeholder="Type message.." 
+        />
         <div v-on:click="sendChat()" style="margin-right:0; width: 10vw" class="ui primary button">
           <i class="paper plane icon"></i>
           {{ ConfirmButton }}
@@ -178,7 +184,11 @@ export default {
           console.log(response);
           this.groups = response.result.groups;
           this.userId = response.result.id;
+          console.log(this.userId, "user_id bojda");
         });
+    },
+    keyDownSend() {
+      window.event.keyCode != 13 ? null : this.sendChat();
     },
     sendChat() {
       let msg = this.msgInput;
