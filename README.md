@@ -5,7 +5,6 @@
 It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....</br>
 Follows some principles from Telegram and such apps...
 
-### SITE PREVIEW
 ![alt text](https://github.com/JanezSedeljsak/owl-messenger/blob/master/imgs/site.png)
 
 ## Getting Started
