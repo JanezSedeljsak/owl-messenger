@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 2vw">
-    <div class="ui secondary pointing menu">
+    <div id="_nav" class="ui secondary pointing menu">
       <img src="./../assets/wide-logo.png" style="width: 7em; height: 3em" />
       <a v-on:click="moveUrl('/')" class="item">Base</a>
       <a v-on:click="moveUrl('/home')" class="item">Home</a>
@@ -31,7 +31,7 @@
     <div style="clear:both" class="ui middle aligned divided list">
       <div
         v-for="(group, $index) in groupsNot.filter(x => x.name.includes(filterValue))"
-        v-bind:key="$index"
+        v-bind:key="$index + 'g'"
         class="item"
       >
         <img v-if="!group.img" class="list-img ui avatar image" src="./../assets/group.png" />

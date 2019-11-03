@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ui secondary pointing menu">
+    <div id="_nav" class="ui secondary pointing menu">
       <img src="./../assets/wide-logo.png" style="width: 15vh; height: 6vh" />
       <a v-on:click="moveUrl('/')" class="item">Base</a>
       <a v-on:click="moveUrl('/home')" class="item">Home</a>

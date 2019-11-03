@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-      <router-view />
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  created: function() {
+  created: function() {},
+  mounted() {
+    if (localStorage.getItem("theme_color")) {
+      document.body.style.backgroundColor = localStorage.getItem("theme_color");
+    }
   }
 };
 </script>
