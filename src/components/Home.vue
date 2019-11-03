@@ -1,30 +1,20 @@
 <template>
   <div>
-    <div id="_nav" class="ui secondary pointing menu">
-      <img src="./../assets/wide-logo.png" style="width: 15vh; height: 6vh" />
-      <a v-on:click="moveUrl('/')" class="item">Base</a>
-      <a v-on:click="moveUrl('/home')" class="item">Home</a>
-      <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
-      <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
-      <a v-on:click="moveUrl('/people')" class="item">Members</a>
-      <div class="right menu">
-        <a
-          v-on:click="moveUrl('/profile')"
-          style="color: #559; font-weight: bold"
-          class="item"
-        >Profile</a>
-        <a v-on:click="moveUrl('/login')" class="item">Logout</a>
-      </div>
-    </div>
-    <nav
-      class="w3-sidebar w3-collapse w3-top w3-large w3-padding"
-      style="height: 93vh; top: 7vh;width:25vw;font-weight:bold;"
-      id="mySidebar"
-    >
-      <div style="margin-bottom: 1vw; width: 100%" class="ui search">
-        <div style="width: 100%" class="ui icon input">
-          <input v-model="chatFilter" class="prompt" type="text" placeholder="Search chats..." />
-          <i class="search icon"></i>
+    <div>
+      <div class="ui secondary pointing menu">
+        <img src="./../assets/wide-logo.png" style="width: 15vh; height: 6vh" />
+        <a v-on:click="moveUrl('/')" class="item">Base</a>
+        <a v-on:click="moveUrl('/home')" class="item">Home</a>
+        <a v-on:click="moveUrl('/chats')" class="item">Chats</a>
+        <a v-on:click="moveUrl('/your-chats')" class="item">Your Chats</a>
+        <a v-on:click="moveUrl('/people')" class="item">Members</a>
+        <div class="right menu">
+          <a
+            v-on:click="moveUrl('/profile')"
+            style="color: #559; font-weight: bold"
+            class="item"
+          >Profile</a>
+          <a v-on:click="moveUrl('/login')" class="item">Logout</a>
         </div>
       </div>
       <nav
@@ -322,7 +312,6 @@ export default {
           this.chat = response.result;
           console.log(this.chat);
         });
-
       // hacky way of refreshing chats //but it works kinda so yea
       if (self_id == this.pickedChat && !!this.chatName) {
         setTimeout(
