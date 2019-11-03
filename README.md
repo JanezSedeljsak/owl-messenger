@@ -5,7 +5,7 @@
 It's a simple chat app idea without a socket developed in Vue, Express with basic chat functionalities....</br>
 Follows some principles from Telegram and such apps...
 
-![alt text](https://github.com/JanezSedeljsak/owl-messenger/blob/master/site.png)
+![alt text](https://github.com/JanezSedeljsak/owl-messenger/blob/master/imgs/site.png)
 
 ## Getting Started
 
@@ -25,6 +25,17 @@ Follows some principles from Telegram and such apps...
 * [Express](https://www.npmjs.com/package/express)
 * [Semantic ui](https://semantic-ui.com)
 * some extra js libraries....
+
+## Features
+> 1. App integrated && Google auth</br>
+> 2. Creating && Editing your own chat groups</br>
+> 3. Joining other peoples chats</br>
+> 4. Members preview</br>
+> 5. Basic chat functionalities</br>
+  > ```Sending, deleting, editing chats```</br>
+  > ```Sending videos, gifs, images ["|owl-!video|link or |owl-!image|link"]```</br>
+  > ```Custom gif picker (just pick a gif and send)```</br>
+  
 
 ## Architecture
 

@@ -58,6 +58,7 @@ form {
 
 .msg-input {
   background-color: #555 !important;
+  color: #eee !important;
 }
 
 form.loginView {
